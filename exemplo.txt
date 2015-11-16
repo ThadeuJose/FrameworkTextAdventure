@@ -1,0 +1,58 @@
+﻿History:
+#primeiro comentario
+#primeiro comentario
+#primeiro comentario
+Game of thrones
+#primeiro comentario
+#primeiro comentario
+"blablabla1
+blablabla2
+blablabla3
+blablabla4
+blablabla5"
+#-----------------------------------------------------------------------------------
+Scene:
+Start  
+
+Voce comeca no hall principal tem uma porta para norte e uma para sul.
+Voce deseja ir para o Norte ou para o Sul.
+
+(Enter,Norte,Lobo)
+(Enter,Sul,Sala de Armas)
+
+Scene:
+Lobo#Comentario que define
+Você encontra um lobo gigante.
+
+Você deseja Ataca-lo ou Correr. 
+
+(Enter,Ataca,Morte)
+(Enter,Correr,Start)
+
+Scene:
+Erro #Scene errada
+(BadEnding)#Tem o good ending também
+
+Scene:
+Sala de armas
+Você encontra uma sala de armas .
+O que você faz ?
+
+(Look,você encontra uma espada velha e um escudo feito de pano)
+(Get)
+(Enter,Norte,Lobo)
+(item,Espada de Madeira,Um pedaço de madeira que serve para você bater)
+(item,Escudo de pano,Um escudo)
+
+Scene:
+Morte
+Você morreu
+(Ending)#Final
+
+#Primeiro Parser desse texto
+#Segundo  Armazena isso numa estrutura 
+#Terceiro Fazer um programa que le a estrutura acima
+#Quarto   Pegar um text adventure e adaptar 
+#Quinto   Repita o processo cinco até estar satisfeito
+
+#Fazer uma historia que adapta essa historia
