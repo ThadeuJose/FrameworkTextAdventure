@@ -1,6 +1,8 @@
+from Direction import Direction
+from Inventory import Inventory
+
 __author__ = 'Thadeu Jose'
 
-from Direction import Direction
 
 class Local:
 
@@ -24,3 +26,16 @@ class Local:
 
     def __str__(self):
         return self.title+"\n"+self.description
+
+
+class LocalWithItem(Local):
+
+    def __init__(self,title,description):
+        Local.__init__(title,description)
+        self.inventory=Inventory()
+
+    def addItem(self,item):
+        #TODO
+        #Testar
+        #Ver se existe exception
+        self.inventory.addItem(item)

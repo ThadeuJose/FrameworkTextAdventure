@@ -1,6 +1,8 @@
 __author__ = 'Thadeu Jose'
 
 from parserException import *
+from Item import Item
+from Inventory import Inventory
 
 class History:
     def __init__(self,title=None,description=None):
@@ -54,8 +56,13 @@ def parse(string):
     #Update a part string in python cheat sheet
     #Make a Location loop
     #Make a parser a class ?
-    print(history.description)
+    #print(history.description)
 
 
+inventory = Inventory()
+item1 = Item('Test','Test')
+inventory.addItem(item1)
+inventory.removeItem(item1)
+print(item1 in inventory)
 
-parse("exemplo.txt")
+#parse("exemplo.txt")

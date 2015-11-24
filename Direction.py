@@ -10,8 +10,6 @@ class Direction:
         return item.lower() in self._dictDirec
 
     def oppositeDirection(self,item):
-        #TODO
-        #Testar
         if item.lower() in self._dictDirec:
             return self._dictDirec[item.lower()]
 
