@@ -11,6 +11,6 @@ class World:
     def addLocal(self,Local):
         self.dicLocal[Local.title]=Local
 
-    def getLocalDescription(self,title):
-        return self.dictLocal[title]
+    def getCurrentLocalDescription(self,title):
+        pass
 

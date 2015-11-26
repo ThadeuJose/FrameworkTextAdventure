@@ -2,7 +2,6 @@ __author__ = 'Thadeu Jose'
 
 from parserException import *
 from Item import Item
-from Inventory import Inventory
 
 class History:
     def __init__(self,title=None,description=None):
@@ -59,10 +58,7 @@ def parse(string):
     #print(history.description)
 
 
-inventory = Inventory()
-item1 = Item('Test','Test')
-inventory.addItem(item1)
-inventory.removeItem(item1)
-print(item1 in inventory)
+item = Item("T","Test")
+item.name=""
 
 #parse("exemplo.txt")

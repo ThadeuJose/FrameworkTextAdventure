@@ -1,16 +1,17 @@
 from Direction import Direction
 from Inventory import Inventory
+from BaseTextObject import TextObject
 
 __author__ = 'Thadeu Jose'
 
 
-class Local:
+class Local(TextObject):
 
-    def __init__(self,title,description):
-        self.title=title
-        self.description=description
+    def __init__(self, title, description):
+        TextObject.__init__(self, title, description)
         self.locals=dict()
         self.direc=Direction()
+
 
     def addLocal(self,direction,Local):
         #TODO
@@ -18,7 +19,6 @@ class Local:
         if direction in self.direc and direction not in self.locals:
             self.locals[direction.lower()]=Local
             Local.addLocal(self.direc.oppositeDirection(direction),self)#Perigo
-
 
     def go(self,direction):
         if direction.lower() in self.direc:
@@ -31,7 +31,7 @@ class Local:
 class LocalWithItem(Local):
 
     def __init__(self,title,description):
-        Local.__init__(title,description)
+        Local.__init__(self,title,description)
         self.inventory=Inventory()
 
     def addItem(self,item):
