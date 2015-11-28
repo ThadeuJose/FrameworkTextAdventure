@@ -1,6 +1,8 @@
+from FrameworkException import *
 from Direction import Direction
 from Inventory import Inventory
 from BaseTextObject import TextObject
+from Commands import Go
 
 __author__ = 'Thadeu Jose'
 
@@ -9,23 +11,40 @@ class Local(TextObject):
 
     def __init__(self, title, description):
         TextObject.__init__(self, title, description)
-        self.locals=dict()
+        self._locals=dict()
         self.direc=Direction()
-
+        self._commands=dict()#Dictionary contain all the command of the room index by the command
+        self._commands['go']=Go(self)
 
     def addLocal(self,direction,Local):
         #TODO
         #Testar
-        if direction in self.direc and direction not in self.locals:
-            self.locals[direction.lower()]=Local
-            Local.addLocal(self.direc.oppositeDirection(direction),self)#Perigo
+        if direction.lower() not in self.direc:
+            raise DirectionNotFoundException()
+        if direction.lower() not in self._locals:
+            raise LocalNotImplementException()
 
-    def go(self,direction):
-        if direction.lower() in self.direc:
-            return self.locals[direction.lower()]
+        self._locals[direction.lower()]=Local
+        Local.addLocal(self.direc.oppositeDirection(direction),self)
+
+    def getLocal(self,direction):
+        #TODO
+        #Testar
+        if direction.lower() not in self.direc:
+            raise DirectionNotFoundException()
+        if direction.lower() not in self._locals:
+            raise LocalNotImplementException()
+        return self._locals[direction.lower()]
+
+    def execute(self,command,args):
+        #TODO
+        #Testar
+        if command not in self._commands:
+            raise CommandNotFoundException()
+        return self._commands[command](args)
 
     def __str__(self):
-        return self.title+"\n"+self.description
+        return self.name+"\n"+self.description
 
 
 class LocalWithItem(Local):

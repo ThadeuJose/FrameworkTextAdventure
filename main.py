@@ -1,5 +1,6 @@
 __author__ = 'Thadeu Jose'
 
+from Local import Local
 from parserException import *
 from Item import Item
 
@@ -58,7 +59,10 @@ def parse(string):
     #print(history.description)
 
 
-item = Item("T","Test")
-item.name=""
+local1 = Local("Ini","ini")
+local2 = Local("Fim","fim")
+
+local1.addLocal("north",local2)
+print (local1.execute("go","north"))
 
 #parse("exemplo.txt")
