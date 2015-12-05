@@ -1,6 +1,7 @@
 from unittest import TestCase
+
 from Inventory import Inventory
-from Item import Item
+from Framework.Item import Item
 from Local import Local
 from FrameworkException import *
 

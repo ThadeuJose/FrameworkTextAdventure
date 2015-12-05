@@ -1,0 +1,14 @@
+- Title: 'LostCavern'
+- Description: 'Example to show the use of trigger'
+- Scene:
+  - Start
+  - 'Voce encontra-se perdido em uma caverna.\nExiste um buraco no teto por onde e possivel ver luz.\nTalvez voce tenha caido deste buraco...\n'
+  - [Go,East,Area 2]
+- Scene:
+  - Area 3
+  - 'Teste'
+  - [Go,North,Area 4]
+- Scene:
+  - Area 4
+  - 'Fim'
+  - [Ending]

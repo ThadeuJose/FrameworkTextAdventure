@@ -1,5 +1,5 @@
-from Item import Item
-from FrameworkException import *
+from Framework.Item import Item
+from Framework.Exceptions import *
 
 __author__ = 'Thadeu Jose'
 

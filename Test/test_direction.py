@@ -1,5 +1,6 @@
 from unittest import TestCase
-from Direction import Direction
+
+from Framework.Direction import Direction
 
 __author__ = 'Thadeu Jose'
 

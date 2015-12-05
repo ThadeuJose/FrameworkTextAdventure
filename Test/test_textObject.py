@@ -1,6 +1,8 @@
 from unittest import TestCase
-from FrameworkException import EmptyStringException
+
+from Framework.Exceptions import EmptyStringException
 from BaseTextObject import TextObject
+
 __author__ = 'Thadeu Jose'
 
 

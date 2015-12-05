@@ -1,5 +1,7 @@
 from unittest import TestCase
-from Item import Item
+
+from Framework.Item import Item
+
 __author__ = 'Thadeu Jose'
 
 

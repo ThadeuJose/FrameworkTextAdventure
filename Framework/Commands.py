@@ -1,5 +1,6 @@
 __author__ = 'Thadeu Jose'
 
+
 class Command:
     pass
 

@@ -1,4 +1,4 @@
-from BaseTextObject import TextObject
+from Framework.BaseTextObject import TextObject
 
 __author__ = 'Thadeu Jose'
 
