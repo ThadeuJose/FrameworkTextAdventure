@@ -1,6 +1,8 @@
 __author__ = 'Thadeu Jose'
 
+from Local import Local
 from parserException import *
+from Item import Item
 
 class History:
     def __init__(self,title=None,description=None):
@@ -54,8 +56,13 @@ def parse(string):
     #Update a part string in python cheat sheet
     #Make a Location loop
     #Make a parser a class ?
-    print(history.description)
+    #print(history.description)
 
 
+local1 = Local("Ini","ini")
+local2 = Local("Fim","fim")
 
-parse("exemplo.txt")
+local1.addLocal("north",local2)
+print (local1.execute("go","north"))
+
+#parse("exemplo.txt")
