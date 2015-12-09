@@ -2,6 +2,7 @@ from Framework.Exceptions import *
 from Framework.Direction import directions,oppositeDirection
 from Framework.Inventory import Inventory
 from Framework.BaseTextObject import TextObject
+from Framework.Constants import COMMAND_GO
 from Framework.Commands import Go
 from Framework.Constants import *
 
@@ -11,12 +12,10 @@ __author__ = 'Thadeu Jose'
 class Local(TextObject):
 
     def __init__(self, title, description,controller):
-        #TODO
-        #Testar
         TextObject.__init__(self, title, description)
         self._locals=dict()
         self._commands=dict()#Dictionary contain all the command of the room index by the command
-        self._commands['go']=Go(self,controller)
+        self._commands[COMMAND_GO]=Go(self,controller)
 
     @property
     def title(self):
@@ -33,8 +32,6 @@ class Local(TextObject):
         return self.title!=other.title
 
     def addLocal(self,direction,Local):
-        #TODO
-        #Testar
         if direction.lower() not in directions:
             raise DirectionNotFoundException()
         if direction.lower() in self._locals:

@@ -1,11 +1,13 @@
 from unittest import TestCase
 
-from Inventory import Inventory
+from Framework.Controller import Controller
+from Framework.Inventory import Inventory
 from Framework.Item import Item
-from Local import Local
-from FrameworkException import *
+from Framework.Local import Local
+from Framework.Exceptions import *
 
 __author__ = 'Thadeu Jose'
+
 
 class TestInventory(TestCase):
 
@@ -32,7 +34,7 @@ class TestInventory(TestCase):
 
   def test_removeItem_ItemException(self):
     inventory = Inventory()
-    local = Local('Test1','Test')
+    local = Local('Test1','Test',Controller)
     with self.assertRaises(ItemException):
       inventory.addItem(local)
 
