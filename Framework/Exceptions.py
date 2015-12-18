@@ -31,7 +31,7 @@ class IncorrectTypeException(Exception):
     def __str__(self):
          return repr('Type '+self.value+ ' is expected')
 
-
+#TODO Não é usada
 class CommandNotFoundException(Exception):
     def __str__(self):
          return repr('Command not found in the dictionary')
@@ -48,3 +48,11 @@ class LocalNotImplementException(Exception):
 class DirectionNotFoundException(Exception):
     def __str__(self):
          return repr('The direction give is not a direction')
+
+class DontHaveStatusException(Exception):
+    def __init__(self,name,status):
+        self.name=name
+        self.status=status
+
+    def __str__(self):
+         return repr('The object '+self.name+ ' dont have the status '+self.status)

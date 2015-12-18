@@ -2,11 +2,12 @@ from Framework.Exceptions import *
 from Framework.Direction import directions,oppositeDirection
 from Framework.Inventory import Inventory
 from Framework.BaseTextObject import TextObject
-from Framework.Constants import COMMAND_GO
 from Framework.Commands import Go
 from Framework.Constants import *
+from Framework.Status import Status
 
 __author__ = 'Thadeu Jose'
+
 
 
 class Local(TextObject):
@@ -16,6 +17,7 @@ class Local(TextObject):
         self._locals=dict()
         self._commands=dict()#Dictionary contain all the command of the room index by the command
         self._commands[COMMAND_GO]=Go(self,controller)
+        self._status=Status()
 
     @property
     def title(self):
@@ -47,6 +49,22 @@ class Local(TextObject):
             return DIRECTION_NOT_PERMITED
         return self._locals[direction.lower()]
 
+    def addstatus(self,idstatus,status):
+        self._status[idstatus]=status
+
+    def getstatus(self,idstatus):
+        return self._status[idstatus]
+
+    def setstatus(self,idstatus,status):
+        self._status[idstatus]=status
+
+    #todo falta o removestatus
+
+    def addcommand(self,idcommand,command):
+        #todo checar se e mesmo um command
+        self._commands[idcommand.lower()]=command
+    #todo falta o removecommand
+
     def exec(self,command,args):
         if command not in self._commands:
             return COMMAND_NOT_EXECUTABLE
@@ -56,18 +74,3 @@ class Local(TextObject):
         return self.name+"\n"+self.description
 
 
-class LocalWithItem(Local):
-
-    def __init__(self,title,description,controller):
-        Local.__init__(self,title,description,controller)
-        self.inventory=Inventory()
-
-    def __init__(self,local):
-        Local.__init__(self,local.title,local.description)
-        self.inventory=Inventory()
-
-    def addItem(self,item):
-        #TODO
-        #Testar
-        #Ver se existe exception
-        self.inventory.addItem(item)

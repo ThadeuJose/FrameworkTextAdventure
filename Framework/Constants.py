@@ -8,10 +8,6 @@ DESCRIPTION_INDEX = 1
 SCENE = "Scene"
 SCENE_INDEX = 2
 COMMANDS_INDEX = 2 #index from the beginning of the command list
-COMMAND_HANDLE = 0
-COMMAND_INDEX = 0
-DIRECTION_INDEX = 1
-LOCAL_INDEX=2
 
 
 #Debug Message------------------------------------------------
@@ -28,8 +24,17 @@ def scenename(elem):
     return "Scene:"+str(elem)
 
 
-#Command Constants already implements ------------------------
-COMMAND_GO="go"
+COMMAND_INDEX = 0
+#Constants of Commands already implements ------------------------
+COMMAND_GO = "go"
+DIRECTION_INDEX = 1
+LOCAL_INDEX=2
+
+COMMAND_ITEM = "item"
+
+#Constants of Status already implements ------------------------
+STATUS_INVENTORY = "inventory"
+
 
 #Local Messages ----------------------------------------------
 COMMAND_NOT_EXECUTABLE = "This command is not executable in this room"

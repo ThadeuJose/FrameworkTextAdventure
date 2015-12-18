@@ -11,7 +11,7 @@ class Inventory:
         self.INDEX_ITEM=0
         self.INDEX_QUANTITY=1
 
-    def addItem(self,item):
+    def add(self,item):
         if not isinstance(item,Item):
             raise ItemException()
         if not list:
@@ -30,6 +30,12 @@ class Inventory:
         return tuple
 
     def __contains__(self, item):
+        #todo make a test
+        if not isinstance(item,Item):
+            for i in self.listItem:
+                if i[self.INDEX_ITEM].name==item:
+                    return True
+            return False
         for i in self.listItem:
             if i[self.INDEX_ITEM]==item:
                 return True
@@ -38,10 +44,24 @@ class Inventory:
     def __str__(self):
         resp=''
         for i in self.listItem:
-            resp+=i[self.INDEX_ITEM].name+"x"+str(i[self.INDEX_QUANTITY])+","
+            if i[self.INDEX_QUANTITY]>1:
+                resp+=i[self.INDEX_ITEM].name+"x"+str(i[self.INDEX_QUANTITY])+","
+            else:
+                resp+=i[self.INDEX_ITEM].name
         return resp[0:len(resp)-1]
 
-    def removeItem(self,item):
+    def get(self,item):#Return the item and decrement one in the quantity
+        for i in self.listItem:
+            if i[self.INDEX_ITEM]==item:
+                resp = i[self.INDEX_ITEM]
+                if i[self.INDEX_QUANTITY]==1:
+                    self.remove(resp)
+                else:
+                     i[self.INDEX_QUANTITY]+=1#You take one in your quantity
+                return resp
+        raise ItemNotFoundException
+
+    def remove(self,item):#Remove the item from the inventory
         if not isinstance(item,Item):
             raise ItemException()
         if not self.listItem:

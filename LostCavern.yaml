@@ -3,12 +3,15 @@
 - Scene:
   - Start
   - 'Voce encontra-se perdido em uma caverna.\nExiste um buraco no teto por onde e possivel ver luz.\nTalvez voce tenha caido deste buraco...\n'
+  - [Go,East,Area 2]
+  - [Item,'Wood','A piece of wood']
+  - [Item,'Fire pit','a hot fire pit','notCollectable:true']
+  - [Item,'Knife','A simple Knife','Damage:1','notCollectable:true']
+- Scene:
+  - Area 2
+  - 'Teste'
   - [Go,East,Area 3]
 - Scene:
   - Area 3
-  - 'Teste'
-  - [Go,East,Area 4]
-- Scene:
-  - Area 4
   - 'Fim'
   - [Ending]

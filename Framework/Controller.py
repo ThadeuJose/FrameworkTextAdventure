@@ -12,7 +12,6 @@ class Controller:
         self.player=player
         self.world = world
         self._currentLocal = None
-        self.COMMAND_GO="go"
 
     @property
     def currentLocal(self):
@@ -24,6 +23,19 @@ class Controller:
             self._currentLocal=value
         else:
             raise IncorrectTypeException('Local')
+
+    def addCommand(self,localtitle,idcommand,command):
+        local = self.world.getLocal(localtitle)
+        local.addcommand(idcommand,command(local,self))
+
+    def player_has(self,item):
+        return item in self.player.inventory
+
+    def setitem(self,item):
+        self.player.inventory.add(item)
+
+    def removeItem(self,itemname):
+        self.player.inventory.remove(itemname)
 
     def exec(self,command,args):
         return self.currentLocal.exec(command,args)
