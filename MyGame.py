@@ -1,24 +1,21 @@
 __author__ = 'Thadeu Jose'
 
 from Framework.Game import Game
-from Framework.Commands import Command
+from Framework.Commands import Command,See
 from Framework.Item import Item
 from Framework.Status import addstatus,getstatus
 
 class MyGame(Game):
 
     def init(self):
-        self.controller.world.getLocal("Start").addstatus("pull_lever",False)
-        self.controller.addCommand("Start","Light",Light)
-        self.controller.addCommand("Start","Pull",Pull)
-        self.controller.addCommand("Start","Go",Go)
+        addstatus(self.controller.getLocal("Start"),"pull_lever",False)
+        self.controller.addcommand("Start","Light",Light)
+        self.controller.addcommand("Start","Pull",Pull)
+        self.controller.addcommand("Start","Go",Go)
+        self.controller.addcommand("Start","See",See)
         self.controller.setitem(Item("Wood","A piece of wood"))
         item1=Item("Knife","A Simple Knife")
-        item2=Item("Knife2","A Simple Knife")
         addstatus(item1,"Damage","1")
-        print(getstatus(item1,"Damage"))
-
-
 
 class Light(Command):
     def __init__(self,local,controller):
@@ -46,7 +43,7 @@ class Go(Command):
         Command.__init__(self,local,controller)
 
     def __call__(self,args):
-        if self.local.getstatus("pull_lever") and args[0].lower()=='east':
+        if getstatus(self.local, "pull_lever") and args[0].lower()=='east':
             self.controller.currentLocal=self.local.getLocal(args[0])
             return self.controller.currentLocal.__str__()
         return "You cant go in this direction"

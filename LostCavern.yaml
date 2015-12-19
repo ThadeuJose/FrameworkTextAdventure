@@ -5,8 +5,9 @@
   - 'Voce encontra-se perdido em uma caverna.\nExiste um buraco no teto por onde e possivel ver luz.\nTalvez voce tenha caido deste buraco...\n'
   - [Go,East,Area 2]
   - [Item,'Wood','A piece of wood']
-  - [Item,'Fire pit','a hot fire pit','notCollectable:true']
-  - [Item,'Knife','A simple Knife','Damage:1','notCollectable:true']
+  - [Item,'Fire pit','a hot fire pit','notCollectable:True']
+  - [Item,'Knife','A simple Knife','Damage:1','notCollectable:True']
+  - [Item,'Fruit','Delicious Fruits','Quant:3']
 - Scene:
   - Area 2
   - 'Teste'

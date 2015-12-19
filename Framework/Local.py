@@ -1,6 +1,5 @@
 from Framework.Exceptions import *
-from Framework.Direction import directions,oppositeDirection
-from Framework.Inventory import Inventory
+from Framework.Direction import DIRECTIONS,oppositedirection
 from Framework.BaseTextObject import TextObject
 from Framework.Commands import Go
 from Framework.Constants import *
@@ -34,31 +33,20 @@ class Local(TextObject):
         return self.title!=other.title
 
     def addLocal(self,direction,Local):
-        if direction.lower() not in directions:
+        if direction.lower() not in DIRECTIONS:
             raise DirectionNotFoundException()
         if direction.lower() in self._locals:
             raise LocalAlreadyImplementException
         self._locals[direction.lower()]=Local
         if direction not in self._locals:
-            Local.addLocal(oppositeDirection(direction),self)
+            Local.addLocal(oppositedirection(direction),self)
 
     def getLocal(self,direction):
-        if direction.lower() not in directions:
+        if direction.lower() not in DIRECTIONS:
             return DIRECTION_NOT_VALID
         if direction.lower() not in self._locals:
             return DIRECTION_NOT_PERMITED
         return self._locals[direction.lower()]
-
-    def addstatus(self,idstatus,status):
-        self._status[idstatus]=status
-
-    def getstatus(self,idstatus):
-        return self._status[idstatus]
-
-    def setstatus(self,idstatus,status):
-        self._status[idstatus]=status
-
-    #todo falta o removestatus
 
     def addcommand(self,idcommand,command):
         #todo checar se e mesmo um command

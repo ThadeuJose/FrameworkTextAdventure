@@ -11,8 +11,8 @@ COMMANDS_INDEX = 2 #index from the beginning of the command list
 
 
 #Debug Message------------------------------------------------
-DEBUG_TITLE_SUCESS="Title successfully added"
-DEBUG_DESCRIPTION_SUCESS="Description successfully added"
+DEBUG_TITLE_SUCESS = "Title successfully added"
+DEBUG_DESCRIPTION_SUCESS = "Description successfully added"
 
 def archivetype(arch):
     return "Archive Type: "+str(type(arch))
@@ -30,11 +30,14 @@ COMMAND_GO = "go"
 DIRECTION_INDEX = 1
 LOCAL_INDEX=2
 
+COMMAND_GET = "get"
+
 COMMAND_ITEM = "item"
 
 #Constants of Status already implements ------------------------
-STATUS_INVENTORY = "inventory"
-
+STATUS_INVENTORY = 'inventory'
+STATUS_NOT_COLLECTABLE = 'notcollectable'
+STATUS_QUANT = 'quant'
 
 #Local Messages ----------------------------------------------
 COMMAND_NOT_EXECUTABLE = "This command is not executable in this room"

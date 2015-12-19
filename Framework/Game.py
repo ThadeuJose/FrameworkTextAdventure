@@ -58,6 +58,7 @@ class Game:
         self.commandfactory=CommandFactory(self.controller)
         if self.debugmode:
             print("Commands:")
+        #todo check duplicate
         for e in textList[SCENE_INDEX:]:
             if SCENE in e:
                 listScene = e[SCENE]
@@ -65,8 +66,7 @@ class Game:
                 for command in listScene[COMMANDS_INDEX:]:
                     if(self.debugmode):
                         print(command)
-                    self.commandfactory.makeCommand(local,command)
-
+                    self.commandfactory.makecommand(local,command)
 
 
         if self.debugmode:
@@ -79,7 +79,7 @@ class Game:
     def interpreter(self,inp):
         #Todo depois do modo logger implementado
         #tirar inp.lower()
-        inp=inp.lower()
+        inp=inp.lower().strip()
         list = inp.split(" ")
         print(self.controller.exec(list[0],list[1:]))
 

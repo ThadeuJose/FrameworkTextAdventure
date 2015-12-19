@@ -24,7 +24,10 @@ class Controller:
         else:
             raise IncorrectTypeException('Local')
 
-    def addCommand(self,localtitle,idcommand,command):
+    def getLocal(self,title):
+        return self.world.getLocal(title)
+
+    def addcommand(self,localtitle,idcommand,command):
         local = self.world.getLocal(localtitle)
         local.addcommand(idcommand,command(local,self))
 

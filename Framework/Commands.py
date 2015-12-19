@@ -1,49 +1,100 @@
-from Framework.Constants import *
+from Framework.Constants import COMMAND_GET, STATUS_QUANT, STATUS_NOT_COLLECTABLE, COMMAND_INDEX, COMMAND_ITEM, COMMAND_GO, DIRECTION_INDEX, LOCAL_INDEX, STATUS_INVENTORY
 from Framework.Item import Item
-from Framework.Inventory import Inventory
+from Framework.Status import hasstatus, getstatus, addinventory
 
 __author__ = 'Thadeu Jose'
 
 
 class CommandFactory:
-    def __init__(self,controller):
-        self.controller=controller
+    def __init__(self, controller):
+        self.controller = controller
 
-    def makeCommand(self,local,command):
-        if(command[COMMAND_INDEX].lower()==COMMAND_GO):
-            local.addLocal(command[DIRECTION_INDEX],self.controller.world.getLocal(command[LOCAL_INDEX]))
-        '''if(command[COMMAND_INDEX].lower()==COMMAND_ITEM):
-            if(command[COMMAND_INDEX].lower()==COMMAND_ITEM):
-                newitem=Item(command[1],command[2])
-                if ':notCollectable' in command:
-                    command.remove(':notCollectable')
+    def makecommand(self, local, command):
+        if command[COMMAND_INDEX].lower() == COMMAND_GO:
+            local.addLocal(command[DIRECTION_INDEX], self.controller.world.getLocal(command[LOCAL_INDEX]))
+            self.controller.addcommand(local.title, COMMAND_GO, Go)
+        if(command[COMMAND_INDEX].lower()==COMMAND_ITEM):
+            newitem=Item(command[1], command[2])
+            if len(command)==3:
+                addinventory(local, STATUS_INVENTORY, newitem)
+                self.controller.addcommand(local.title, COMMAND_GET ,Get)
+            else:
+                for elem in command[3:]:
+                    statusname,statusattribute=elem.lower().split(':')
+                    newitem_dic=dict()
+                    newitem_dic[statusname]=statusattribute
 
-                    local.addstatus('notCollectable',Inventory())
+                if STATUS_NOT_COLLECTABLE in newitem_dic:
+                    if newitem_dic[STATUS_NOT_COLLECTABLE]:
+                        addinventory(local, STATUS_NOT_COLLECTABLE, newitem)
 
-'''
+                if STATUS_QUANT in newitem_dic:
+                    for i in range(int(newitem_dic[STATUS_QUANT])):
+                        addinventory(local, STATUS_INVENTORY, newitem)
+
+
 
 class Command:
-    def __init__(self,local,controller):
+    def __init__(self, local, controller):
         self.local=local
         self.controller=controller
 
 
 class Go(Command):
-    def __init__(self,local,controller):
-        Command.__init__(self,local,controller)
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
 
-    def __call__(self,args):
+    def __call__(self, args):
         local =self.local.getLocal(args[0])
         self.controller.currentLocal=local
         return local.__str__()
 
 class Get(Command):
-    def __init__(self,local,controller):
-        Command.__init__(self,local,controller)
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
 
-    def __call__(self,args):
-        inventory =self.local.getstatus(STATUS_INVENTORY)
-        self.controller.setItem(inventory.get(args[0]))
-        return "You sucessful get "+args[0]
+    def __call__(self, args):
+        if hasstatus(self.local, STATUS_INVENTORY):
+            inventory = getstatus(self.local, STATUS_INVENTORY)
+            resp = " ".join(args)
+            if resp in inventory:
+                self.controller.setitem(inventory.take(resp))
+                return "You sucessful get "+resp
+            return "You cant get the item"
+        return "There is nothing to get here"
+
+            #TODO Get more then one item
+            #REGEX see if has a number not follow for nothing
+'''            if len(args)==2:
+                try:
+                    if args[0] in inventory:
+                        self.controller.setitem(inventory.take(args[0],int(args[1].strip())))
+                        return "You sucessful get "+args[0]
+                    return "You cant get the item"
+                except Exception as e:
+                    print(e)
+                    return "You cant get the item"'''
+
+
+
+
+
+
+class See(Command):
+
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
+
+    def __call__(self, args):
+        resp=list()
+        if hasstatus(self.local,STATUS_INVENTORY):
+            inv = getstatus(self.local, STATUS_INVENTORY)
+            resp.append(str(inv))
+        if hasstatus(self.local, STATUS_NOT_COLLECTABLE):
+            inv = getstatus(self.local, STATUS_NOT_COLLECTABLE)
+            resp.append(str(inv))
+        if resp:
+            return "You see "+ ", ".join(resp)
+        return "There nothing to see here"
 
 
