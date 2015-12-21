@@ -10,7 +10,7 @@ __author__ = 'Thadeu Jose'
 
 
 class TestInventory(TestCase):
-  #TODO testar contain
+  #todo Testar Take
   def test_addItem(self):
     inventory = Inventory()
     item1 = Item('Test1','Test')
@@ -21,6 +21,22 @@ class TestInventory(TestCase):
     self.assertTrue(item1 in inventory)
     self.assertTrue(item2 in inventory)
 
+  def test_contain_item_class(self):
+    inventory = Inventory()
+    item1 = Item('Test1','Test')
+    item2 = Item('Test2','Test')
+    inventory.add(item1)
+    inventory.add(item2)
+    self.assertIn(item1, inventory)
+
+  def test_contain_string(self):
+    inventory = Inventory()
+    item1 = Item('Test1','Test')
+    item2 = Item('Test2','Test')
+    inventory.add(item1)
+    inventory.add(item2)
+    self.assertIn('Test1', inventory)
+
   def test_removeItem(self):
     inventory = Inventory()
     item1 = Item('Test1','Test')
@@ -30,6 +46,17 @@ class TestInventory(TestCase):
     inventory.add(item2)
     inventory.add(item3)
     inventory.remove(item2)
+    self.assertNotIn(item2,inventory)
+
+  def test_removeItem_2(self):
+    inventory = Inventory()
+    item1 = Item('Test1','Test')
+    item2 = Item('Test2','Test')
+    item3 = Item('Test3','Test')
+    inventory.add(item1)
+    inventory.add(item2)
+    inventory.add(item3)
+    inventory.remove('Test2')
     self.assertNotIn(item2,inventory)
 
   def test_removeItem_ItemException(self):
@@ -59,4 +86,4 @@ class TestInventory(TestCase):
     inventory.add(Item('Test2','Test'))
     inventory.add(Item('Test2','Test'))
     resp = str(inventory)
-    self.assertEqual(resp,'Test1x1,Test2x3')
+    self.assertEqual(resp,'Test1, Test2 x 3')

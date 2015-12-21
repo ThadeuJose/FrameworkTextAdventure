@@ -16,11 +16,11 @@ class TestWorld(TestCase):
   def test_addLocal_sucessful(self):
     world = World()
     world.addLocal(Local("Teste1","Teste"))
-    local = world.getLocal("Teste1")
+    local = world.getlocal("Teste1")
     self.assertEqual(local,Local("Teste1","Teste"))
 
   def test_getLocal_LocalNotImplementException(self):
     world = World()
     world.addLocal(Local("Teste1","Teste"))
     with self.assertRaises(LocalNotImplementException):
-      world.getLocal("Teste")
+      world.getlocal("Teste")

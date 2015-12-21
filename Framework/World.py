@@ -1,4 +1,4 @@
-from Framework.Exceptions import LocalNotImplementException,IncorrectTypeException
+from Framework.Exceptions import DontHaveLocalID,IncorrectTypeException
 from Framework.Local import Local
 
 __author__ = 'Thadeu Jose'
@@ -17,9 +17,9 @@ class World:
         else:
             raise IncorrectTypeException('Local')
 
-    def getLocal(self,title):
+    def getlocal(self, title):
         if title not in self._dictLocal:
-            raise LocalNotImplementException()
+            raise DontHaveLocalID(title)
         return self._dictLocal[title]
 
     def __str__(self):

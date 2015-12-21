@@ -1,77 +1,23 @@
+from Framework.Actor import Player
+from Framework.Parser import Parser
+from Framework.World import World
+from Framework.Controller import Controller
+
 __author__ = 'Thadeu Jose'
 
-import yaml
-from Framework.World import World
-from Framework.Local import *
-from Framework.Constants import *
-from Framework.Commands import CommandFactory
-from Framework.Controller import Controller
-from Framework.Actor import Player
-from Framework.Constants import *
 
 class Game:
 
     def __init__(self,filename,debug=False):
         #todo
-        # testar filename e criar exception
+        # testar arquivo existente criar exception
         #Criar interpreter
-        #Usar expressoões regulares no interpretador
-        self.debugmode=debug
-        self.filename=filename
+        #Usar expressoes regulares no interpretador
+        self.debugmode = debug
+        self.filename = filename
         self.world = World()
-        self.controller = None
-
-    def openfile(self):
-        if not self.filename:
-            raise EmptyStringException("Filename")
-        with open(self.filename,"r") as stream:
-            textlist=yaml.load(stream)
-        return textlist
-
-    def _system_init(self):
-        #todo
-        #Testar se list[0] e titulo e list[1]
-        textList=self.openfile()
-        self.controller = Controller(self.world,Player())
-        if self.debugmode:
-            print(archivetype(textList))
-        if TITLE in textList[TITLE_INDEX]:
-                self.world.title = textList[TITLE_INDEX][TITLE]
-                if self.debugmode:
-                    print(DEBUG_TITLE_SUCESS)
-        if DESCRIPTION in textList[DESCRIPTION_INDEX]:
-            self.world.description= textList[DESCRIPTION_INDEX][DESCRIPTION]
-            if(self.debugmode):
-                print(DEBUG_DESCRIPTION_SUCESS)
-        #construct all scene
-        for e in textList[SCENE_INDEX:]:
-            #print (e)
-            if SCENE in e:
-                if self.debugmode:
-                    print(scenetype(e[SCENE]))
-                    print(scenename(e[SCENE]))
-                #tODO
-                #Raise exception if not have titulo and description
-                listScene = e[SCENE]
-                local=Local(listScene[TITLE_INDEX],listScene[DESCRIPTION_INDEX].replace("\\n","\n"),self.controller)
-                self.world.addLocal(local)
-        self.commandfactory=CommandFactory(self.controller)
-        if self.debugmode:
-            print("Commands:")
-        #todo check duplicate
-        for e in textList[SCENE_INDEX:]:
-            if SCENE in e:
-                listScene = e[SCENE]
-                local = self.world.getLocal(listScene[TITLE_INDEX])
-                for command in listScene[COMMANDS_INDEX:]:
-                    if(self.debugmode):
-                        print(command)
-                    self.commandfactory.makecommand(local,command)
-
-
-        if self.debugmode:
-            print("-"*30)
-        self.controller.currentLocal=self.world.getLocal("Start")
+        self.controller = Controller(self.world, Player())
+        self.parser = Parser(self.filename, self.world, self.controller)
 
     def init(self):
         pass
@@ -81,20 +27,32 @@ class Game:
         #tirar inp.lower()
         inp=inp.lower().strip()
         list = inp.split(" ")
-        print(self.controller.exec(list[0],list[1:]))
+        return self.controller.execute(list[0],list[1:])
 
-
-    def run(self):
+    def run(self, fileinput=None):
         #TODO
-        #Salvar os inputs num arquivo e os output no outro
+        #Chegar so arquivo e txt
         exe=True
-        self._system_init()
+        self.parser.init()
         self.init()
-        print(self.world)
-        print(self.controller.currentLocal)
-        while(exe):
-            inp=input(">>")
-            if(inp.lower()=="end"):
-                print("Thanks for playing",self.world.title)
-                break
-            self.interpreter(inp)
+        if not fileinput:
+            print(self.world)
+            print(self.controller.currentLocal)
+            while exe:
+                if self.controller.endinglocal(self.controller.currentLocal):
+                    print(self.controller.currentLocal)
+                    break
+                inp=input(">>")
+                print(self.interpreter(inp))
+        else:
+            out=list()
+            out.append(self.world)
+            out.append(self.controller.currentLocal)
+            with open(fileinput, "r") as inputfile:
+                commands = inputfile.readlines()
+                for c in commands:
+                    if not c[0] == '#':
+                        out.append(">> "+c.rstrip('\n'))
+                        out.append(self.interpreter(c))
+            with open(fileinput[:-4]+'_output.txt', "w") as outputfile:
+                outputfile.write("\n".join(map(str, out)))

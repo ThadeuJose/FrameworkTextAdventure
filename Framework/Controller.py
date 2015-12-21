@@ -12,6 +12,7 @@ class Controller:
         self.player=player
         self.world = world
         self._currentLocal = None
+        self._endingLocals = list()
 
     @property
     def currentLocal(self):
@@ -19,26 +20,35 @@ class Controller:
 
     @currentLocal.setter
     def currentLocal(self, value):
-        if isinstance(value,Local):
-            self._currentLocal=value
+        if isinstance(value, Local):
+            self._currentLocal = value
         else:
             raise IncorrectTypeException('Local')
 
-    def getLocal(self,title):
-        return self.world.getLocal(title)
+    def endinglocal(self, local):
+        self._endingLocals.append(local)
 
-    def addcommand(self,localtitle,idcommand,command):
-        local = self.world.getLocal(localtitle)
-        local.addcommand(idcommand,command(local,self))
+    def isendinglocal(self, local):
+        return local in self._endingLocals
 
-    def player_has(self,item):
+    def getlocal(self, title):
+        return self.world.getlocal(title)
+
+    def addcommand(self, local, idcommand, command):
+        if isinstance(local, str):
+            mylocal = self.world.getlocal(local)
+            mylocal.addcommand(idcommand, command(mylocal, self))
+        elif isinstance(local, Local):
+            local.addcommand(idcommand, command(local, self))
+
+    def player_has(self, item):
         return item in self.player.inventory
 
-    def setitem(self,item):
+    def setitem(self, item):
         self.player.inventory.add(item)
 
-    def removeItem(self,itemname):
-        self.player.inventory.remove(itemname)
+    def removeitem(self, item):
+        self.player.inventory.remove(item)
 
-    def exec(self,command,args):
-        return self.currentLocal.exec(command,args)
+    def execute(self, command, args):
+        return self.currentLocal.execute(command, args)

@@ -37,8 +37,8 @@ class TestLocal(TestCase):
     self.assertEqual(self.local.getLocal('North'),self.local1)
 
   def test_exec_COMMAND_NOT_EXECUTABLE(self):
-    self.assertEqual(self.local.exec('QualquerCoisa','QualquerCoisa'),COMMAND_NOT_EXECUTABLE)
+    self.assertEqual(self.local.execute('QualquerCoisa', 'QualquerCoisa'), COMMAND_NOT_EXECUTABLE)
 
   def test_exec_sucessful(self):
-    self.assertEqual(self.local.exec(COMMAND_GO,['North']),'Teste1\nTeste')
+    self.assertEqual(self.local.execute(COMMAND_GO, ['North']), 'Teste1\nTeste')
 

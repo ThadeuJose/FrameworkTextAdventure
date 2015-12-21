@@ -14,11 +14,14 @@ COMMANDS_INDEX = 2 #index from the beginning of the command list
 DEBUG_TITLE_SUCESS = "Title successfully added"
 DEBUG_DESCRIPTION_SUCESS = "Description successfully added"
 
+
 def archivetype(arch):
     return "Archive Type: "+str(type(arch))
 
+
 def scenetype(elem):
     return "Scene Type:"+str(type(elem))
+
 
 def scenename(elem):
     return "Scene:"+str(elem)
@@ -33,6 +36,11 @@ LOCAL_INDEX=2
 COMMAND_GET = "get"
 
 COMMAND_ITEM = "item"
+
+COMMAND_START = "start"
+
+COMMAND_END = "end"
+
 
 #Constants of Status already implements ------------------------
 STATUS_INVENTORY = 'inventory'

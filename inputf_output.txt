@@ -1,0 +1,39 @@
+LostCavern
+Example to show the use of trigger
+Area 1
+Voce encontra-se perdido em uma caverna.
+Existe um buraco no teto por onde e possivel ver luz.
+Talvez voce tenha caido deste buraco...
+
+>> get wood
+You sucessful get Wood
+>> light
+You light a torch
+>> pull lever
+You pull the lever
+>> go north
+You cant go in this direction
+>> go east
+Area 2
+Voce estÃ¡ a uma area ampla, plena de estalactites no teto.
+ Um bando de morcegos voam sem parar bloqueando sua visÃ£o.
+>> observer ground
+percebeu um buraco consideravelmente grande. Nele tem algumas pedras pontiagudas no chao alem de algumas ervas que podem ser uteis
+>> get stones
+You sucessful get Stones
+>> get herb
+You sucessful get Herb
+>> observer hole
+existe um cantil e uma corda no interior do buraco
+>> get flask
+You sucessful get Flask
+>> get rope
+You sucessful get Rope
+>> shot stones
+As pedras soltaram as estalactites que cairam nos morcegos. Os morcegos se afastaram da passagem. É possível ver uma luz que aponta para um desfiladeiro
+>> tie rope
+amarrou a corda e pode descer o desfiladeiro
+>> go north
+Voce desceu o desfiladeiro e pode avancar
+Area 3
+Fim

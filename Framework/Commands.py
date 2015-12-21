@@ -1,6 +1,6 @@
-from Framework.Constants import COMMAND_GET, STATUS_QUANT, STATUS_NOT_COLLECTABLE, COMMAND_INDEX, COMMAND_ITEM, COMMAND_GO, DIRECTION_INDEX, LOCAL_INDEX, STATUS_INVENTORY
+from Framework.Constants import COMMAND_END, COMMAND_START, COMMAND_GET, STATUS_QUANT, STATUS_NOT_COLLECTABLE, COMMAND_INDEX, COMMAND_ITEM, COMMAND_GO, DIRECTION_INDEX, LOCAL_INDEX, STATUS_INVENTORY
 from Framework.Item import Item
-from Framework.Status import hasstatus, getstatus, addinventory
+from Framework.Status import hasstatus, getstatus, addinventory, getinventory
 
 __author__ = 'Thadeu Jose'
 
@@ -10,10 +10,17 @@ class CommandFactory:
         self.controller = controller
 
     def makecommand(self, local, command):
+        if command[COMMAND_INDEX].lower() == COMMAND_START:
+            self.controller.currentLocal = self.controller.getlocal(local.title)
+
+        if command[COMMAND_INDEX].lower() == COMMAND_END:
+            self.controller.endinglocal(self.controller.getlocal(local.title))
+
         if command[COMMAND_INDEX].lower() == COMMAND_GO:
-            local.addLocal(command[DIRECTION_INDEX], self.controller.world.getLocal(command[LOCAL_INDEX]))
+            local.addLocal(command[DIRECTION_INDEX], self.controller.world.getlocal(command[LOCAL_INDEX]))
             self.controller.addcommand(local.title, COMMAND_GO, Go)
-        if(command[COMMAND_INDEX].lower()==COMMAND_ITEM):
+
+        if command[COMMAND_INDEX].lower()==COMMAND_ITEM:
             newitem=Item(command[1], command[2])
             if len(command)==3:
                 addinventory(local, STATUS_INVENTORY, newitem)
@@ -45,23 +52,26 @@ class Go(Command):
         Command.__init__(self, local, controller)
 
     def __call__(self, args):
-        local =self.local.getLocal(args[0])
+        local =self.local.getlocal(args[0])
         self.controller.currentLocal=local
         return local.__str__()
+
 
 class Get(Command):
     def __init__(self, local, controller):
         Command.__init__(self, local, controller)
 
     def __call__(self, args):
-        if hasstatus(self.local, STATUS_INVENTORY):
-            inventory = getstatus(self.local, STATUS_INVENTORY)
+        inventory = getinventory(self.local,self.local.DEFAULT_INVENTORY)
+        if inventory:
             resp = " ".join(args)
             if resp in inventory:
                 self.controller.setitem(inventory.take(resp))
-                return "You sucessful get "+resp
+                return "You sucessful get "+resp.capitalize()
             return "You cant get the item"
         return "There is nothing to get here"
+
+
 
             #TODO Get more then one item
             #REGEX see if has a number not follow for nothing
@@ -86,15 +96,16 @@ class See(Command):
         Command.__init__(self, local, controller)
 
     def __call__(self, args):
-        resp=list()
-        if hasstatus(self.local,STATUS_INVENTORY):
-            inv = getstatus(self.local, STATUS_INVENTORY)
-            resp.append(str(inv))
-        if hasstatus(self.local, STATUS_NOT_COLLECTABLE):
-            inv = getstatus(self.local, STATUS_NOT_COLLECTABLE)
-            resp.append(str(inv))
-        if resp:
-            return "You see "+ ", ".join(resp)
-        return "There nothing to see here"
-
-
+        if not args:
+            resp=list()
+            if hasstatus(self.local,STATUS_INVENTORY):
+                inv = getstatus(self.local, STATUS_INVENTORY)
+                resp.append(str(inv))
+            if hasstatus(self.local, STATUS_NOT_COLLECTABLE):
+                inv = getstatus(self.local, STATUS_NOT_COLLECTABLE)
+                resp.append(str(inv))
+            if resp:
+                return "You see "+ ", ".join(resp)
+            return "There nothing to see here"
+        if args[0] == 'inv':
+            return "You have "+ str(self.controller.player.inventory)
