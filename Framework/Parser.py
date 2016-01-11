@@ -9,7 +9,7 @@ __author__ = 'Thadeu Jose'
 
 class Parser:
 
-    def __init__(self, filename, world, controller,  debug = False):
+    def __init__(self, filename, world, controller,  debug=False):
         self.filename = filename
         self.debugmode = debug
         self.myworld = world
@@ -63,5 +63,5 @@ class Parser:
         if self.debugmode:
             print("-"*30)
 
-        #todo check if has a sstart place
+        #todo check if has a start place
 

@@ -11,27 +11,30 @@ class Status(dict):
 
 def addstatus(cls, idstatus, status):
     try:
-        cls.status[idstatus]=status
+        cls.status[idstatus] = status
     except AttributeError:
         cls.status=Status()
         cls.status[idstatus]=status
+
 
 def getstatus(cls, idstatus):
     try:
         status = cls.status[idstatus]
     except AttributeError:
-        raise DontHaveStatusException(cls.name,idstatus)
+        raise DontHaveStatusException(cls.name, idstatus)
     except KeyError:
-        raise DontHaveStatusException(cls.name,idstatus)
+        raise DontHaveStatusException(cls.name, idstatus)
     return status
+
 
 def setstatus(cls, idstatus, status):
     try:
         cls.status[idstatus] = status
     except AttributeError:
-        raise DontHaveStatusException(cls.name,idstatus)
+        raise DontHaveStatusException(cls.name, idstatus)
     except KeyError:
-        raise DontHaveStatusException(cls.name,idstatus)
+        raise DontHaveStatusException(cls.name, idstatus)
+
 
 def hasstatus(cls, idstatus):
     try:
@@ -45,10 +48,10 @@ def hasstatus(cls, idstatus):
 
 
 def addinventory(cls, inventoryname, item):
-    inv = getstatus(cls, inventoryname) if hasstatus(cls, inventoryname)else Inventory()
+    inv = getstatus(cls, inventoryname) if hasstatus(cls, inventoryname) else Inventory()
     inv.add(item)
     addstatus(cls, inventoryname, inv)
 
 
 def getinventory(cls, inventoryname):
-    return getstatus(cls, inventoryname) if hasstatus(cls, inventoryname)else None
+    return getstatus(cls, inventoryname) if hasstatus(cls, inventoryname) else None

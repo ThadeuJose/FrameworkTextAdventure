@@ -26,36 +26,36 @@ class MyGame(Game):
 
 
 class Light(Command):
-    def __init__(self,local,controller):
-        Command.__init__(self,local,controller)
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
 
     def __call__(self,args):
-        if self.controller.player_has(Item('Wood',"A piece of wood")):
-            self.controller.setitem(Item('Torch',"A simple torch"))
-            self.controller.removeitem(Item("Wood","A piece of wood"))
+        if self.controller.player_has(Item('Wood', "A piece of wood")):
+            self.controller.setitem(Item('Torch', "A simple torch"))
+            self.controller.removeitem(Item("Wood", "A piece of wood"))
             return "You light a torch"
         return "You cant do this command"
 
 
 class Pull(Command):
-    def __init__(self,local,controller):
-        Command.__init__(self,local,controller)
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
 
     def __call__(self,args):
-        if self.controller.player_has(Item('Torch',"A simple torch")) and args[0].lower() == 'lever':
+        if self.controller.player_has(Item('Torch', "A simple torch")) and args[0].lower() == 'lever':
             setstatus(self.local, "pull_lever", True)
             return "You pull the lever"
         return "You cant do this command"
 
 
 class Go1(Command):
-    def __init__(self,local,controller):
-        Command.__init__(self,local,controller)
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
 
     def __call__(self,args):
-        if getstatus(self.local, "pull_lever") and args[0].lower()=='east':
-            self.controller.currentLocal=self.local.getlocal(args[0])
-            return self.controller.currentLocal.__str__()
+        if getstatus(self.local, "pull_lever") and args[0].lower() == 'east':
+            self.controller.currentlocal = self.local.getlocal(args[0])
+            return self.controller.currentlocal.__str__()
         return "You cant go in this direction"
 
 
@@ -94,7 +94,6 @@ class Observer(Command):
         return "You cant do this command"
 
 
-
 class Shot(Command):
     def __init__(self,local,controller):
         Command.__init__(self,local,controller)
@@ -118,13 +117,13 @@ class Tie(Command):
 
 
 class Go2(Command):
-    def __init__(self,local,controller):
-        Command.__init__(self,local,controller)
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
 
     def __call__(self,args):
         if getstatus(self.local, "shot_stone") and args[0].lower() == 'north':
-            self.controller.currentLocal=self.local.getlocal(args[0])
-            return "Voce desceu o desfiladeiro e pode avancar\n" +self.controller.currentLocal.__str__()
+            self.controller.currentlocal = self.local.getlocal(args[0])
+            return "Voce desceu o desfiladeiro e pode avancar\n" +self.controller.currentlocal.__str__()
         return "You cant go in this direction"
 
 

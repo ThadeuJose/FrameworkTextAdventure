@@ -1,63 +1,68 @@
+"""Create and implements the commands"""
+
 from Framework.Constants import COMMAND_END, COMMAND_START, COMMAND_GET, STATUS_QUANT, STATUS_NOT_COLLECTABLE, COMMAND_INDEX, COMMAND_ITEM, COMMAND_GO, DIRECTION_INDEX, LOCAL_INDEX, STATUS_INVENTORY
 from Framework.Item import Item
-from Framework.Status import hasstatus, getstatus, addinventory, getinventory
+from Framework.Status import addstatus,hasstatus, getstatus, addinventory, getinventory
 
 __author__ = 'Thadeu Jose'
 
 
 class CommandFactory:
+    """Create all the commands"""
     def __init__(self, controller):
         self.controller = controller
 
     def makecommand(self, local, command):
+        """Make a command based in what is write in the YAML file"""
         if command[COMMAND_INDEX].lower() == COMMAND_START:
-            self.controller.currentLocal = self.controller.getlocal(local.title)
+            self.controller.currentlocal = self.controller.getlocal(local.title)
 
         if command[COMMAND_INDEX].lower() == COMMAND_END:
-            self.controller.endinglocal(self.controller.getlocal(local.title))
+            self.controller.addendinglocal(self.controller.getlocal(local.title))
 
         if command[COMMAND_INDEX].lower() == COMMAND_GO:
             local.addLocal(command[DIRECTION_INDEX], self.controller.world.getlocal(command[LOCAL_INDEX]))
             self.controller.addcommand(local.title, COMMAND_GO, Go)
 
         if command[COMMAND_INDEX].lower()==COMMAND_ITEM:
-            newitem=Item(command[1], command[2])
-            if len(command)==3:
+            newitem = Item(command[1], command[2])
+            if len(command) == 3:
                 addinventory(local, STATUS_INVENTORY, newitem)
-                self.controller.addcommand(local.title, COMMAND_GET ,Get)
+                self.controller.addcommand(local.title, COMMAND_GET, Get)
             else:
                 for elem in command[3:]:
-                    statusname,statusattribute=elem.lower().split(':')
-                    newitem_dic=dict()
-                    newitem_dic[statusname]=statusattribute
+                    statusname, statusattribute = elem.lower().split(':')
+                    addstatus(newitem, statusname, statusattribute)
 
-                if STATUS_NOT_COLLECTABLE in newitem_dic:
-                    if newitem_dic[STATUS_NOT_COLLECTABLE]:
+                if hasstatus(newitem, STATUS_NOT_COLLECTABLE):
+                    if getstatus(newitem, STATUS_NOT_COLLECTABLE):
                         addinventory(local, STATUS_NOT_COLLECTABLE, newitem)
 
-                if STATUS_QUANT in newitem_dic:
-                    for i in range(int(newitem_dic[STATUS_QUANT])):
+                if hasstatus(newitem, STATUS_QUANT):
+                    for i in range(int(getstatus(newitem,STATUS_QUANT))):
                         addinventory(local, STATUS_INVENTORY, newitem)
 
 
-
 class Command:
+    """Base class of all commands"""
     def __init__(self, local, controller):
-        self.local=local
-        self.controller=controller
+        self.local = local
+        self.controller = controller
 
 
 class Go(Command):
+    """Command you use to walk in the history"""
     def __init__(self, local, controller):
         Command.__init__(self, local, controller)
 
     def __call__(self, args):
         local =self.local.getlocal(args[0])
-        self.controller.currentLocal=local
+        self.controller.currentlocal=local
         return local.__str__()
 
 
 class Get(Command):
+    """Command you use to pick a item"""
     def __init__(self, local, controller):
         Command.__init__(self, local, controller)
 
@@ -91,7 +96,7 @@ class Get(Command):
 
 
 class See(Command):
-
+    """Command you use to see in detail something"""
     def __init__(self, local, controller):
         Command.__init__(self, local, controller)
 

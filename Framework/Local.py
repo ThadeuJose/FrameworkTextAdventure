@@ -17,20 +17,19 @@ class Local(TextObject):
         self.DEFAULT_INVENTORY = STATUS_INVENTORY
         self.NOT_COLLECTABLE = STATUS_NOT_COLLECTABLE
 
-
     @property
     def title(self):
         return self.name
 
     @title.setter
     def title(self, value):
-        self.name=value
+        self.name = value
 
     def __eq__(self, other):
-        return self.title==other.title
+        return self.title == other.title
 
     def __ne__(self, other):
-        return self.title!=other.title
+        return self.title != other.title
 
     def addLocal(self, direction, Local):
         if direction.lower() not in DIRECTIONS:
