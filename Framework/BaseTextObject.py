@@ -54,3 +54,6 @@ class TextObject:
 
     def __ne__(self, other):
         return not __eq__(self, other)
+
+    def __str__(self):
+        return self._name+"\n"+self._description

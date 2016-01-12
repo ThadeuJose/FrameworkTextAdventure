@@ -5,8 +5,20 @@ Voce encontra-se perdido em uma caverna.
 Existe um buraco no teto por onde e possivel ver luz.
 Talvez voce tenha caido deste buraco...
 
+>> see
+You see Wood, Fire pit, Knife, Fruit x 4
 >> get wood
 You sucessful get Wood
+>> get knife
+You cant get the item
+>> get fruit
+You sucessful get Fruit
+>> see
+You see Fire pit, Fruit x 3, Knife
+>> get fire pit
+You cant get the item
+>> see inv
+You have Wood, Fruit
 >> light
 You light a torch
 >> pull lever

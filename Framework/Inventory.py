@@ -58,7 +58,8 @@ class Inventory:
     def __str__(self):
         return ", ".join(map(str, self.listItem))
 
-    def take(self, item, quant=1):#Return the item and decrement one in the quantity
+    def take(self, item, quant=1):
+        """Return the item and decrement one in the quantity"""
         if item in self:
             for elem in self.listItem:
                 if elem == item:
@@ -66,10 +67,11 @@ class Inventory:
                         self.remove(elem.item)
                     else:
                         elem.quant -= quant
-                    return elem
+                    return elem.item
         raise ItemNotFoundException
 
-    def remove(self, item):#Remove the item from the inventory
+    def remove(self, item):
+        """Remove the item from the inventory"""
         if not self.listItem:
             raise EmptyInventoryException()
         if item not in self:

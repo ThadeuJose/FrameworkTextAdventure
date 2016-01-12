@@ -14,6 +14,7 @@ class Parser:
         self.debugmode = debug
         self.myworld = world
         self.mycontroller = controller
+        self.commandfactory = CommandFactory(self.mycontroller)
 
     def openfile(self):
         if not self.filename:
@@ -48,7 +49,6 @@ class Parser:
                 listScene = e[SCENE]
                 local=Local(listScene[TITLE_INDEX],listScene[DESCRIPTION_INDEX].replace("\\n","\n"),self.mycontroller)
                 self.myworld.addLocal(local)
-        self.commandfactory = CommandFactory(self.mycontroller)
         if self.debugmode:
             print("Commands:")
         #todo check duplicate

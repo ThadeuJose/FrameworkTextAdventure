@@ -9,15 +9,11 @@ __author__ = 'Thadeu Jose'
 class MyGame(Game):
 
     def init(self):
-        addstatus(self.controller.getlocal("Area 1"), "pull_lever", False)
         self.controller.addcommand("Area 1", "Light", Light)
         self.controller.addcommand("Area 1", "Pull", Pull)
         self.controller.addcommand("Area 1", "Go", Go1)
         self.controller.addcommand("Area 1", "See", See)
 
-        addstatus(self.controller.getlocal("Area 2"), "shot_stone", False)
-        addstatus(self.controller.getlocal("Area 2"), "analise_ground", False)
-        addstatus(self.controller.getlocal("Area 2"), "analise_hole", False)
         self.controller.addcommand("Area 2", "Go", Go2)
         self.controller.addcommand("Area 2", "Shot", Shot)
         self.controller.addcommand("Area 2", "Observer", Observer)
@@ -64,7 +60,7 @@ class Get(Command):
         Command.__init__(self, local, controller)
 
     def __call__(self, args):
-        inventory = getinventory(self.local,self.local.DEFAULT_INVENTORY)
+        inventory = getinventory(self.local, self.local.DEFAULT_INVENTORY)
         if inventory:
             collectable = list()
             resp = " ".join(args)

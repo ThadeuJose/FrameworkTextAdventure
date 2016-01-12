@@ -51,15 +51,15 @@ class DirectionNotFoundException(Exception):
 
 
 class DontHaveLocalID(Exception):
-    def __init__(self,title):
-        self.title=title
+    def __init__(self, title):
+        self.title = title
 
     def __str__(self):
         return repr("The are no class Local implemented with the title "+self.title)
 
 
 class DontHaveStatusException(Exception):
-    def __init__(self,name,status):
+    def __init__(self, name, status):
         self.name=name
         self.status=status
 

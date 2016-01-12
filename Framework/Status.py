@@ -27,6 +27,18 @@ def getstatus(cls, idstatus):
     return status
 
 
+def getallstatus(cls):
+    resp = list()
+    for idstatus in cls.status:
+        try:
+            resp.extend([idstatus, cls.status[idstatus]])
+        except AttributeError:
+            raise DontHaveStatusException(cls.name, idstatus)
+        except KeyError:
+            raise DontHaveStatusException(cls.name, idstatus)
+    return ", ".join(resp)
+
+
 def setstatus(cls, idstatus, status):
     try:
         cls.status[idstatus] = status
@@ -43,6 +55,8 @@ def hasstatus(cls, idstatus):
         return False
     except KeyError:
         return False
+
+
 
 #todo falta o removestatus
 

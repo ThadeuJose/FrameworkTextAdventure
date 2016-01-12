@@ -1,6 +1,6 @@
 __author__ = 'Thadeu Jose'
 
-#Interpreter ------------------------------------------------
+#Parser ------------------------------------------------
 TITLE = 'Title'
 TITLE_INDEX=0
 DESCRIPTION = "Description"
@@ -41,6 +41,7 @@ COMMAND_START = "start"
 
 COMMAND_END = "end"
 
+COMMAND_STATUS = "status"
 
 #Constants of Status already implements ------------------------
 STATUS_INVENTORY = 'inventory'

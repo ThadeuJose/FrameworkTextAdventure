@@ -1,4 +1,10 @@
+see
 get wood
+get knife
+get fruit
+see
+get fire pit
+see inv
 light
 pull lever
 go north

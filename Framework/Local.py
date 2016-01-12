@@ -15,7 +15,6 @@ class Local(TextObject):
         self._locals = dict()
         self._commands = dict()#Dictionary contain all the command of the room index by the command name
         self.DEFAULT_INVENTORY = STATUS_INVENTORY
-        self.NOT_COLLECTABLE = STATUS_NOT_COLLECTABLE
 
     @property
     def title(self):
@@ -57,7 +56,5 @@ class Local(TextObject):
             return COMMAND_NOT_EXECUTABLE
         return self._commands[command](args)
 
-    def __str__(self):
-        return self.name+"\n"+self.description
 
 
