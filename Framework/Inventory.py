@@ -5,7 +5,7 @@ __author__ = 'Thadeu Jose'
 
 
 class MyTuple:
-
+    """Mutable Tuple"""
     def __init__(self, item, quantity=1):
         self.item = item
         self.quant = quantity
@@ -22,17 +22,16 @@ class MyTuple:
         return False
 
     def __str__(self):
-        if self.quant>1:
-            return self.name+" x "+str(self.quant)
-        return self.name
+        return self.name if self.quant > 1 else self.name+" x "+str(self.quant)
 
 
 class Inventory:
-
+    """Manage the inventory"""
     def __init__(self):
         self.listItem = list()
 
     def add(self, item):
+        """Add a item if a item already exist you add one in the quantity"""
         if isinstance(item, Item):
             mytuple = MyTuple(item)
         elif isinstance(item, MyTuple):
@@ -58,7 +57,10 @@ class Inventory:
     def __str__(self):
         return ", ".join(map(str, self.listItem))
 
-    def take(self, item, quant=1):#Return the item and decrement one in the quantity
+    def take(self, item, quant=1):
+        """Return the item and decrement one in the quantity
+        If quantity equal 0 the item is remove
+        """
         if item in self:
             for elem in self.listItem:
                 if elem == item:
@@ -69,7 +71,8 @@ class Inventory:
                     return elem
         raise ItemNotFoundException
 
-    def remove(self, item):#Remove the item from the inventory
+    def remove(self, item):#
+        """Remove the item from the inventory"""
         if not self.listItem:
             raise EmptyInventoryException()
         if item not in self:

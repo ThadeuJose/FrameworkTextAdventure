@@ -7,7 +7,7 @@ __author__ = 'Thadeu Jose'
 
 
 class Controller:
-    """Control the interation between the game and the rest of the framework"""
+    """Control the interaction between the game and the rest of the framework"""
     def __init__(self,world,player):
         #TODO
         #Testar
