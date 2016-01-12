@@ -1,0 +1,24 @@
+- Title: 'LostCavern'
+- Description: 'Example to show the use of trigger'
+- Scene:
+  - Area 1
+  - 'Voce encontra-se perdido em uma caverna.\nExiste um buraco no teto por onde e possivel ver luz.\nTalvez voce tenha caido deste buraco...\n'
+  - [Start]
+  - [Go,East,Area 2]
+  - [Item,'Wood','A piece of wood']
+  - [Item,'Fire pit','a hot fire pit','notCollectable:True']
+  - [Item,'Knife','A simple Knife','Damage:1','notCollectable:True']
+  - [Item,'Fruit','Delicious Fruits','Quant:3']
+- Scene:
+  - Area 2
+  - 'Voce está a uma area ampla, plena de estalactites no teto.\n Um bando de morcegos voam sem parar bloqueando sua visão.'
+  - [Go,North,Area 3]
+  - [Go,East,Area 1]
+  - [Item,'Stones','A simple stone']
+  - [Item,'Herb','A curative herb']
+  - [Item,'Flask','Bottle to drink water']
+  - [Item,'Rope','1.2m of rope ']
+- Scene:
+  - Area 3
+  - 'Fim'
+  - [End]

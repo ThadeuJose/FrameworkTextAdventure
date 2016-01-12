@@ -1,8 +1,14 @@
-from FrameworkException import EmptyStringException
+"""Basic framework objects"""
+
+from Framework.Exceptions import EmptyStringException
 
 __author__ = 'Thadeu Jose'
 
+
 class TextObject:
+    """Basic object of the framework
+    Name and Description cant be empty string
+    """
 
     def __init__(self,name,description):
         if name:
@@ -17,6 +23,9 @@ class TextObject:
 
     @property
     def name(self):
+        """The name of the object
+        Use to index in the framework
+        """
         return self._name
 
     @name.setter
@@ -28,6 +37,9 @@ class TextObject:
 
     @property
     def description(self):
+        """Describe the object
+        Cant be empty string
+        """
         return self._description
 
     @description.setter

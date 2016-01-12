@@ -1,0 +1,17 @@
+get wood
+light
+pull lever
+go north
+go east
+#observer hole
+#get stones
+#get herb
+observer ground
+get stones
+get herb
+observer hole
+get flask
+get rope
+shot stones
+tie rope
+go north
