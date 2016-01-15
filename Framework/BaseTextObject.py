@@ -10,14 +10,14 @@ class TextObject:
     Name and Description cant be empty string
     """
 
-    def __init__(self,name,description):
+    def __init__(self, name, description):
         if name:
-            self._name=name
+            self._name = name
         else:
             raise EmptyStringException('name')
 
         if description:
-            self._description=description
+            self._description = description
         else:
             raise EmptyStringException('description')
 

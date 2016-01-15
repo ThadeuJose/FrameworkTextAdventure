@@ -8,10 +8,10 @@ __author__ = 'Thadeu Jose'
 
 class Controller:
     """Control the interation between the game and the rest of the framework"""
-    def __init__(self,world,player):
+    def __init__(self, world, player):
         #TODO
         #Testar
-        self.player=player
+        self.player = player
         self.world = world
         self._currentLocal = None
         self._endingLocals = list()

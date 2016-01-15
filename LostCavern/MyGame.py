@@ -124,4 +124,4 @@ class Go2(Command):
 
 
 myGame = MyGame("LostCavern.yaml")
-myGame.run("inputf.txt")
+myGame.run()#("inputf.txt")

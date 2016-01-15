@@ -3,8 +3,10 @@
 __author__ = 'Thadeu Jose'
 
 
-DIRECTIONS = {'north': 'south', 'south': 'north', 'west': 'east', 'east': 'west',
-              'northwest': 'southeast', 'southeast': 'northwest', 'northeast': 'southwest', 'southwest': 'northeast'}
+DIRECTIONS = {'north': 'south', 'south': 'north', 
+			  'west': 'east', 'east': 'west',
+              'northwest': 'southeast', 'southeast': 'northwest', 
+              'northeast': 'southwest', 'southwest': 'northeast'}
 
 
 def oppositedirection(direction):

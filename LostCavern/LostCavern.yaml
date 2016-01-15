@@ -12,7 +12,7 @@
   - [Status,"pull_lever:False"]
 - Scene:
   - Area 2
-  - 'Voce está a uma area ampla, plena de estalactites no teto.\n Um bando de morcegos voam sem parar bloqueando sua visão.'
+  - 'Voce esta a uma area ampla, plena de estalactites no teto.\n Um bando de morcegos voam sem parar bloqueando sua visao.'
   - [Go,North,Area 3]
   - [Go,East,Area 1]
   - [Item,'Stones','A simple stone']

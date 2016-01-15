@@ -5,14 +5,16 @@ __author__ = 'Thadeu Jose'
 
 
 class MyTuple:
-
+    """Mutable Tuple"""
     def __init__(self, item, quantity=1):
         self.item = item
         self.quant = quantity
 
+
     @property
     def name(self):
         return self.item.name
+
 
     def __eq__(self, other):
         if isinstance(other, Item) and self.item == other:
@@ -21,18 +23,18 @@ class MyTuple:
             return True
         return False
 
+
     def __str__(self):
-        if self.quant>1:
-            return self.name+" x "+str(self.quant)
-        return self.name
+        return self.name if self.quant > 1 else self.name + " x " + str(self.quant)
 
 
 class Inventory:
-
+    """Manage the inventory"""
     def __init__(self):
         self.listItem = list()
 
     def add(self, item):
+        """Add a item if a item already exist you add one in the quantity"""
         if isinstance(item, Item):
             mytuple = MyTuple(item)
         elif isinstance(item, MyTuple):
@@ -46,8 +48,8 @@ class Inventory:
             self.listItem.append(mytuple)
         else:
             for elem in self.listItem:
-                if elem.item == item:#If you find the item
-                    elem.quant += 1  #You put plus one in your quantity
+                if elem.item == item:  # If you find the item
+                    elem.quant += 1  # You put plus one in your quantity
 
     def __contains__(self, item):
         for elem in self.listItem:
@@ -59,11 +61,13 @@ class Inventory:
         return ", ".join(map(str, self.listItem))
 
     def take(self, item, quant=1):
-        """Return the item and decrement one in the quantity"""
+        """Return the item and decrement one in the quantity
+        If quantity equal 0 the item is remove
+        """
         if item in self:
             for elem in self.listItem:
                 if elem == item:
-                    if elem.quant-quant <= 0:
+                    if elem.quant - quant <= 0:
                         self.remove(elem.item)
                     else:
                         elem.quant -= quant
@@ -80,5 +84,3 @@ class Inventory:
             for elem in self.listItem:
                 if elem == item:
                     self.listItem.remove(elem)
-
-

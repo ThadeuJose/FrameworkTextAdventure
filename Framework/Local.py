@@ -10,7 +10,7 @@ __author__ = 'Thadeu Jose'
 
 class Local(TextObject):
 
-    def __init__(self, title, description,controller):
+    def __init__(self, title, description , controller):
         TextObject.__init__(self, title, description)
         self._locals = dict()
         self._commands = dict()#Dictionary contain all the command of the room index by the command name
@@ -35,9 +35,9 @@ class Local(TextObject):
             raise DirectionNotFoundException()
         if direction.lower() in self._locals:
             raise LocalAlreadyImplementException
-        self._locals[direction.lower()]=Local
+        self._locals[direction.lower()] = Local
         if direction not in self._locals:
-            Local.addLocal(oppositedirection(direction),self)
+            Local.addLocal(oppositedirection(direction) , self)
 
     def getlocal(self, direction):
         if direction.lower() not in DIRECTIONS:
@@ -46,9 +46,9 @@ class Local(TextObject):
             return DIRECTION_NOT_PERMITED
         return self._locals[direction.lower()]
 
-    def addcommand(self,idcommand,command):
+    def addcommand(self , idcommand , command):
         #todo checar se e mesmo um command
-        self._commands[idcommand.lower()]=command
+        self._commands[idcommand.lower()] = command
     #todo falta o removecommand
 
     def execute(self, command, args):

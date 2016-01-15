@@ -2,13 +2,12 @@ __author__ = 'Thadeu Jose'
 
 #Parser ------------------------------------------------
 TITLE = 'Title'
-TITLE_INDEX=0
+TITLE_INDEX = 0 
 DESCRIPTION = "Description"
 DESCRIPTION_INDEX = 1
 SCENE = "Scene"
 SCENE_INDEX = 2
 COMMANDS_INDEX = 2 #index from the beginning of the command list
-
 
 #Debug Message------------------------------------------------
 DEBUG_TITLE_SUCESS = "Title successfully added"
@@ -31,7 +30,7 @@ COMMAND_INDEX = 0
 #Constants of Commands already implements ------------------------
 COMMAND_GO = "go"
 DIRECTION_INDEX = 1
-LOCAL_INDEX=2
+LOCAL_INDEX = 2
 
 COMMAND_GET = "get"
 

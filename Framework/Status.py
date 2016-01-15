@@ -4,7 +4,6 @@ from Framework.Inventory import Inventory
 __author__ = 'Thadeu Jose'
 
 
-
 class Status(dict):
     pass
 
@@ -13,8 +12,8 @@ def addstatus(cls, idstatus, status):
     try:
         cls.status[idstatus] = status
     except AttributeError:
-        cls.status=Status()
-        cls.status[idstatus]=status
+        cls.status = Status()
+        cls.status[idstatus] = status
 
 
 def getstatus(cls, idstatus):
@@ -55,9 +54,6 @@ def hasstatus(cls, idstatus):
         return False
     except KeyError:
         return False
-
-
-
 #todo falta o removestatus
 
 

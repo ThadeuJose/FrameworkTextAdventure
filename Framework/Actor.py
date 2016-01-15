@@ -2,7 +2,7 @@
 
 from Framework.Inventory import Inventory
 
-__author__='Thadeu Jose'
+__author__ = 'Thadeu Jose'
 
 
 class Player:

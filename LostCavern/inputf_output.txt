@@ -6,7 +6,7 @@ Existe um buraco no teto por onde e possivel ver luz.
 Talvez voce tenha caido deste buraco...
 
 >> see
-You see Wood, Fire pit, Knife, Fruit x 4
+You see Wood x 1, Fire pit x 1, Knife x 1, Fruit
 >> get wood
 You sucessful get Wood
 >> get knife
@@ -14,11 +14,11 @@ You cant get the item
 >> get fruit
 You sucessful get Fruit
 >> see
-You see Fire pit, Fruit x 3, Knife
+You see Fire pit x 1, Fruit, Knife x 1
 >> get fire pit
 You cant get the item
 >> see inv
-You have Wood, Fruit
+You have Wood x 1, Fruit x 1
 >> light
 You light a torch
 >> pull lever
