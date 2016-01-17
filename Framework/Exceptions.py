@@ -1,6 +1,7 @@
 __author__ = 'Thadeu Jose'
 
-
+#Todo replace Exception with Error
+#TODO Colocar toda a parte de string em format {0} {1} e na parte de constant
 class ItemException(Exception):
     def __str__(self):
         return repr('You dont pass a class or subclass of Item')
@@ -17,7 +18,7 @@ class ItemNotFoundException(Exception):
 
 
 class EmptyStringException(Exception):
-    def __init__(sel , alue):
+    def __init__(self, value):
         self.value = value
 
     def __str__(self):
@@ -25,16 +26,19 @@ class EmptyStringException(Exception):
 
 
 class IncorrectTypeException(Exception):
-    def __init__(sel , alue):
+    def __init__(self, value):
         self.value = value
 
     def __str__(self):
         return repr('Type '+self.value+ ' is expected')
 
-#TODO N�o � usada
+
 class CommandNotFoundException(Exception):
+    def __init__(self, value):
+        self.value = value
+
     def __str__(self):
-        return repr('Command not found in the dictionary')
+        return repr('Command '+self.value +' not found in the list of command')
 
 class LocalAlreadyImplementException(Exception):
     def __str__(self):
@@ -48,6 +52,7 @@ class LocalNotImplementException(Exception):
 class DirectionNotFoundException(Exception):
     def __str__(self):
         return repr('The direction give is not a direction')
+
 
 class EmptyFileException(Exception):
     def __str__(self):
@@ -71,31 +76,43 @@ class DontHaveStatusException(Exception):
         return repr('The object '+self.name+ ' dont have the status '+self.status)
 
 
-class WrongTitleException(Exception):
+class BadInput(Exception):
     def __str__(self):
-        return repr("Title should be in the format '- Title: 'string'")
+        return repr('The file is not following the specification')
 
 
-class WrongDescriptionException(Exception):
+class BadTitle(Exception):
     def __str__(self):
-        return repr("Description should be in the format '- Description: 'string'")
+        return repr('The title is not occupying the first position of the file')
 
 
-class WrongSceneException(Exception):
+class BadDescription(Exception):
     def __str__(self):
-        return repr("Scene should be in the format '- Scene:\n")
+        return repr('The description is not occupying the second position of the file')
 
 
-class WrongSceneTitleException(Exception):
+class EmptyTitle(Exception):
     def __str__(self):
-        return repr("Scene Title should be in the format '- 'Title'\n")
+        return repr('Not exist title in scene')
 
 
-class WrongSceneDescriptionException(Exception):
+class EmptyDescription(Exception):
     def __str__(self):
-        return repr("Scene Description should be in the format '- 'Description'\n")
+        return repr('Not exist description in scene')
 
 
-class WrongCommandException(Exception):
+class EmptyScene(Exception):
     def __str__(self):
-        return repr("Command should be in the format '- [command,arg1,arg2,...]\n")
+        return repr('The file not contain a scene')
+
+
+class NotStartPlace(Exception):
+    def __str__(self):
+        return repr('The world not have a start place put the command [Start] in the scene where the player will start')
+
+
+class DuplicateTitleError(Exception):
+    def __init__(self, value):
+        self.name = value
+    def __str__(self):
+        return repr('Already exist a scene with the title '+self.name)

@@ -4,6 +4,7 @@ from Framework.Inventory import Inventory
 __author__ = 'Thadeu Jose'
 
 
+#TODO GameObject
 class Status(dict):
     pass
 

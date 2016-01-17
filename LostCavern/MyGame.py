@@ -25,7 +25,7 @@ class Light(Command):
     def __init__(self, local, controller):
         Command.__init__(self, local, controller)
 
-    def __call__(self,args):
+    def __call__(self, args):
         if self.controller.player_has(Item('Wood', "A piece of wood")):
             self.controller.setitem(Item('Torch', "A simple torch"))
             self.controller.removeitem(Item("Wood", "A piece of wood"))

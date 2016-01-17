@@ -17,6 +17,9 @@ class World:
         else:
             raise IncorrectTypeException('Local')
 
+    def haslocal(self, title):
+        return title in self._dictLocal
+
     def getlocal(self, title):
         if title not in self._dictLocal:
             raise DontHaveLocalID(title)

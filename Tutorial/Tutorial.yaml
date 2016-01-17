@@ -1,19 +1,28 @@
-- Title: 'Tutorial'
-- Description: 'A adventure to teach
-                how to use the engine'
+- Title: "Tutorial"
+
+- Description: "A adventure to teach how to use the engine"
 
 - Scene:
-    - 'Title1'
-    - 'Description'
-    - [a,b,c]
+    - Entrance
+    - Welcome to your first interactive fiction game! This is the opening text, it will explain what's going on.\n
+      To start playing the game, click on the > and type in 'go north', 'north', or 'n' to head north into the next room.\n
+      Once you've typed it, go ahead and hit the enter key.
+    - [Start]
+    - [Go,North,Cavern]
+    - [Status,'unvisited:false']
 
 - Scene:
-    - 'Title2'
-    - 'Description'
-
-
+    - Cavern
+    - Good job! Interactive fiction generally involves moving room to room solving puzzles on the way.\n
+      You can move any compass direction the writer has programmed in the same way.\n
+      The next room is to the east. Do you know what to do?
+    - [Go,East,Corridor]
+    - [Status,'unvisited:false']
 
 - Scene:
-    - 'Title3'
-    - 'Description'
-    - [a,b,c]
+    - Corridor
+    - You now know how to move room to room in a text-based adventure.\n
+      In this room there is a sign. Type 'examine sign' to examine the sign.
+    - [Item,Sign,"You are reading the sign! The next room is above you. Type 'up' or 'u' to go up.",'notCollectable:true']
+
+

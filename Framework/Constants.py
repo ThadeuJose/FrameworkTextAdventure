@@ -32,6 +32,8 @@ COMMAND_GO = "go"
 DIRECTION_INDEX = 1
 LOCAL_INDEX = 2
 
+COMMAND_SEE = "see"
+
 COMMAND_GET = "get"
 
 COMMAND_ITEM = "item"
