@@ -5,6 +5,7 @@ from Framework.Constants import COMMAND_END, COMMAND_START, COMMAND_GET, STATUS_
 from Framework.Item import Item
 from Framework.Status import addstatus, hasstatus, getstatus, addinventory, getinventory
 from Framework.Exceptions import CommandNotFoundException,DontHaveLocalID
+from Framework.Local import Local
 
 __author__ = 'Thadeu Jose'
 
@@ -78,10 +79,11 @@ class Go(Command):
 
     def __call__(self, args):
         local = self.local.getlocal(args[0])
-        if not local:
-            raise DontHaveLocalID(args[0])
-        self.controller.currentlocal = local
-        return local.__str__()
+        if isinstance(local, Local):
+            self.controller.currentlocal = local
+            return local.__str__()
+        return local
+
 
 
 class Get(Command):

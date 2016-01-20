@@ -9,7 +9,6 @@
       Once you've typed it, go ahead and hit the enter key.
     - [Start]
     - [Go,North,Cavern]
-    - [Status,'unvisited:false']
 
 - Scene:
     - Cavern
@@ -17,7 +16,6 @@
       You can move any compass direction the writer has programmed in the same way.\n
       The next room is to the east. Do you know what to do?
     - [Go,East,Corridor]
-    - [Status,'unvisited:false']
 
 - Scene:
     - Corridor
