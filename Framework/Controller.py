@@ -2,6 +2,7 @@
 
 from Framework.Local import Local
 from Framework.Exceptions import IncorrectTypeException
+from Framework.Direction import DIRECTIONS
 
 __author__ = 'Thadeu Jose'
 
@@ -59,3 +60,4 @@ class Controller:
     def execute(self, command, args):
         """Execute the command in the current local"""
         return self.currentlocal.execute(command, args)
+

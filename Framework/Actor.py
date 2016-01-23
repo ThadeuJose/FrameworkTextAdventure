@@ -16,3 +16,10 @@ class Player:
     def additem(self, item):
         """Add a item in player inventory."""
         self.inventory.add(item)
+
+#TODO Herdar de textObject
+class NPC:
+    """Keep the information about a NPC"""
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description

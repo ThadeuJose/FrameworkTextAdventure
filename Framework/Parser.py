@@ -22,7 +22,8 @@ class Parser:
         with open(self.filename, "r") as stream:
             self.emptyfile(stream)
             textlist = yaml.load(stream)
-            print(textlist)
+            if self.debugmode:
+                print(textlist)
         return textlist
 
     def emptyfile(self, stream):
@@ -33,8 +34,7 @@ class Parser:
         stream.seek(0)
 
     def init(self):
-        #todo
-        #Refatorar
+        #todo Refatorar e criar class debugmode
         textlist = self.openfile()
         if self.debugmode:
             print(archivetype(textlist))
@@ -83,7 +83,8 @@ class Parser:
 
                 if self.myworld.haslocal(title):
                     raise DuplicateTitleError(title)
-                print(description)
+                if self.debugmode:
+                    print(description)
                 local = Local(title, description.replace("\\n", "\n"), self.mycontroller)
                 self.myworld.addLocal(local)
         if self.debugmode:

@@ -4,6 +4,10 @@ from Framework.Direction import adddirection
 
 class MyGame(Game):
 
+    def preprocess(self):
+        adddirection("up", "down")
+        adddirection("portal", "ectasy")
+
     def init(self):
         self.controller.addcommand("Entrance", "Go", ConditionalGo)
         self.controller.addcommand("Cave", "Go", ConditionalGo)
@@ -11,8 +15,6 @@ class MyGame(Game):
         self.controller.addcommand("Hallway", "Go", ConditionalGo)
         self.controller.addcommand("Vault", "Go", ConditionalGo)
         self.controller.addcommand("Study", "Go", ConditionalGo)
-
-        adddirection("Up", "Down")
 
 
 class ConditionalGo(Go):
@@ -41,6 +43,5 @@ class ConditionalGo(Go):
         return Go.__call__(self, args)
 
 
-
-game = Game("Tutorial.yaml", True)
+game = MyGame("Tutorial.yaml",True)
 game.run()

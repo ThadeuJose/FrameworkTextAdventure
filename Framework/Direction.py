@@ -17,5 +17,7 @@ def oppositedirection(direction):
 
 
 def adddirection(direction, opposite_direction):
-    DIRECTIONS[direction] = opposite_direction
-    DIRECTIONS[opposite_direction] = direction
+    direction_lower = direction.lower()
+    opposite_direction_lower = opposite_direction.lower()
+    DIRECTIONS[direction_lower] = opposite_direction_lower
+    DIRECTIONS[opposite_direction_lower] = direction_lower

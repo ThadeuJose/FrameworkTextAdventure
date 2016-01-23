@@ -1,15 +1,16 @@
 """Create and implements the commands"""
-from Framework.Constants import COMMAND_END, COMMAND_START, COMMAND_GET, STATUS_QUANT, \
-    COMMAND_INDEX, COMMAND_ITEM, COMMAND_GO, DIRECTION_INDEX, \
+from Framework.Constants import CommandIndex, COMMAND_END, COMMAND_START, COMMAND_GET, STATUS_QUANT, \
+    COMMAND_ITEM, COMMAND_GO, DIRECTION_INDEX, COMMAND_NPC, \
     LOCAL_INDEX, STATUS_INVENTORY, STATUS_NOT_COLLECTABLE, COMMAND_STATUS, COMMAND_SEE
 from Framework.Item import Item
 from Framework.Status import addstatus, hasstatus, getstatus, addinventory, getinventory
-from Framework.Exceptions import CommandNotFoundException,DontHaveLocalID
+from Framework.Exceptions import CommandNotFoundException
 from Framework.Local import Local
+from Framework.Actor import NPC
 
 __author__ = 'Thadeu Jose'
 
-
+#TODO Take magic number and character ':'
 class CommandFactory:
     """Create all the commands"""
 
@@ -22,19 +23,20 @@ class CommandFactory:
             COMMAND_GO: self._make_go,
             COMMAND_ITEM: self._make_item,
             COMMAND_STATUS: self._make_status,
+            COMMAND_NPC: self._make_NPC,
         }
 
     def makecommand(self, local, command):
         """Make a command based in what is write in the YAML file"""
         self.command = command
-        commandindex = self.command[COMMAND_INDEX].lower()
+        commandindex = self.command[CommandIndex.Command].lower()
         if commandindex in self._dispatch:
             self._dispatch[commandindex](local)
         else:
             raise CommandNotFoundException(commandindex)
 
     def createstatus(self, cls, lis):
-        """Add status in a class"""
+        """Add a list of status in a class"""
         for elem in lis:
             statusname, statusattribute = elem.lower().split(':')
             addstatus(cls, statusname, statusattribute)
@@ -63,6 +65,8 @@ class CommandFactory:
     def _make_status(self, local):
         self.createstatus(local, self.command[1:])
 
+    def _make_NPC(self, local):
+        addstatus(local, self.command[1], NPC(self.command[1], self.command[2]))
 
 class Command:
     """Base class of all commands"""

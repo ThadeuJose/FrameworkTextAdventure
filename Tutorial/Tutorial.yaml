@@ -8,10 +8,10 @@
       To start playing the game, click on the > and type in 'go north', 'north', or 'n' to head north into the next room.\n
       Once you've typed it, go ahead and hit the enter key.
     - [Start]
-    - [Go,North,Cavern]
+    - [Go,North,Cave]
 
 - Scene:
-    - Cavern
+    - Cave
     - Good job! Interactive fiction generally involves moving room to room solving puzzles on the way.\n
       You can move any compass direction the writer has programmed in the same way.\n
       The next room is to the east. Do you know what to do?
@@ -32,7 +32,7 @@
     - [Go,East,Vault]
     - [Item,Box,"A large, heavy box that can be opened, closed, and can be used to hold things.",'container:true',"open:false"]
     - [Item,Key,"A small key that you can use to lock and unlock the wooden door.",'inside:box']
-    - [Item,Key,Potion book,"Ooooooo, I think you should show this to someone."]
+    - [Item,Potion book,"Ooooooo, I think you should show this to someone."]
     - [Item,Small rock,"A small useless rock."]
 - Scene:
     - Vault
@@ -44,7 +44,7 @@
     - [Item,Button,"A big, red, round button that can be used to open the gate."]
     - [Status,"gate_closed:true"]
 
--Scene:
+- Scene:
     - Study
     - You see a portal to the west and a Wizard here.\n
       This Wizard has the power to open the portal for you.\n

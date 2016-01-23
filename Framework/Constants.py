@@ -1,3 +1,4 @@
+from enum import IntEnum
 __author__ = 'Thadeu Jose'
 
 #Parser ------------------------------------------------
@@ -26,9 +27,17 @@ def scenename(elem):
     return "Scene:"+str(elem)
 
 
-COMMAND_INDEX = 0
+class CommandIndex(IntEnum):
+    Command = 0
+    Name = 1
+    Description = 2
+
+#COMMAND_INDEX = 0
+#COMMAND_NAME_INDEX = 1
+#COMMAND_DESCRIPTION_INDEX = 2
 #Constants of Commands already implements ------------------------
 COMMAND_GO = "go"
+#GO.
 DIRECTION_INDEX = 1
 LOCAL_INDEX = 2
 
@@ -37,8 +46,11 @@ COMMAND_SEE = "see"
 COMMAND_GET = "get"
 
 COMMAND_ITEM = "item"
+ITEM_STATUS_INDEX = 3
 
 COMMAND_START = "start"
+
+COMMAND_NPC = "npc"
 
 COMMAND_END = "end"
 

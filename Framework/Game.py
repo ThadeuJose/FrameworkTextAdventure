@@ -17,7 +17,10 @@ class Game:
         self.filename = filename
         self.world = World()
         self.controller = Controller(self.world, Player())
-        self.parser = Parser(self.filename, self.world, self.controller,self.debugmode)
+        self.parser = Parser(self.filename, self.world, self.controller, self.debugmode)
+
+    def preprocess(self):
+        pass
 
     def init(self):
         pass
@@ -30,12 +33,12 @@ class Game:
         elem = inp.split(" ")
         return self.controller.execute(elem[0], elem[1:])
 
-
     def run(self, fileinput=None):
         """Run the game if a fileinput is given, will run the game with the inputs and exists"""
         # TODO
         # Chegar se arquivo de input e txt
         exe = True
+        self.preprocess()
         self.parser.init()
         self.init()
         if not fileinput:
