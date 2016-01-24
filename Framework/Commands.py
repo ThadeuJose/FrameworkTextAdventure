@@ -1,10 +1,11 @@
 """Create and implements the commands"""
 from Framework.Constants import CommandIndex, COMMAND_END, COMMAND_START, COMMAND_GET, STATUS_QUANT, \
     COMMAND_ITEM, COMMAND_GO, DIRECTION_INDEX, COMMAND_NPC, \
-    LOCAL_INDEX, STATUS_INVENTORY, STATUS_NOT_COLLECTABLE, COMMAND_STATUS, COMMAND_SEE
+    LOCAL_INDEX, STATUS_INVENTORY, STATUS_NOT_COLLECTABLE, COMMAND_STATUS, COMMAND_SEE,STATUS_CONTAINER,STATUS_INSIDE,\
+    STATUS_VISIBLE
 from Framework.Item import Item
-from Framework.Status import addstatus, hasstatus, getstatus, addinventory, getinventory
-from Framework.Exceptions import CommandNotFoundException
+from Framework.Status import addstatus, hasstatus, getstatus,setstatus, addinventory, getinventory
+from Framework.Exceptions import CommandNotFoundException,ContainerNotFoundError
 from Framework.Local import Local
 from Framework.Actor import NPC
 
@@ -61,6 +62,13 @@ class CommandFactory:
             if hasstatus(newitem, STATUS_QUANT):
                 for i in range(int(getstatus(newitem, STATUS_QUANT))):
                     addinventory(local, STATUS_INVENTORY, newitem)
+            if hasstatus(newitem, STATUS_INSIDE):
+                containername = getstatus(newitem,STATUS_INSIDE)
+                inv = getinventory(local,STATUS_INVENTORY)
+                if containername in inv:
+                    addstatus(newitem,STATUS_VISIBLE,False)
+                else:
+                    raise ContainerNotFoundError(containername)
 
     def _make_status(self, local):
         self.createstatus(local, self.command[1:])
@@ -86,7 +94,7 @@ class Go(Command):
         if isinstance(local, Local):
             self.controller.currentlocal = local
             return local.__str__()
-        return local
+        return "You cant go in this direction"
 
 
 
@@ -99,17 +107,21 @@ class Get(Command):
     def __call__(self, args):
         inventory = getinventory(self.local, self.local.DEFAULT_INVENTORY)
         itemname = " ".join(args)
-        if inventory:
-            if itemname in inventory:
-                item = inventory.take(itemname)
-                if hasstatus(item, STATUS_NOT_COLLECTABLE) and getstatus(item, STATUS_NOT_COLLECTABLE):
-                    inventory.add(item)
-                    return "You cant get the item"
+        item = inventory.take(itemname)
+        if not inventory:
+            return "There is nothing to get here"
+        if itemname not in inventory:
+            return "There is no item call " + itemname.capitalize()
+        cancollect = self._collectable(item,STATUS_NOT_COLLECTABLE) or self._collectable(item,STATUS_VISIBLE)
+        if cancollect:
+            inventory.add(item)
             self.controller.setitem(item)
             return "You sucessful get " + itemname.capitalize()
-        else:
-            return "There is no item call " + itemname.capitalize()
-        return "There is nothing to get here"
+        return "You cant get the item"
+
+    def _collectable(self,item,idstatus):
+        return hasstatus(item, idstatus) and getstatus(item, idstatus)
+
 
 
 
@@ -136,7 +148,13 @@ class See(Command):
     def __call__(self, args):
         if not args and hasstatus(self.local, STATUS_INVENTORY):
             inv = getstatus(self.local, STATUS_INVENTORY)
-            return "You see " + str(inv)
+            result = list()
+            for elem in inv:
+                if hasstatus(elem, STATUS_VISIBLE):
+                    if getstatus(elem, STATUS_VISIBLE):
+                        result.append(elem)
+                result.append(elem)
+            return "You see " + ", ".join(result)
         if args[0] == 'inv':
             return "You have " + str(self.controller.player.inventory)
         if args and hasstatus(self.local, STATUS_INVENTORY):
@@ -147,3 +165,19 @@ class See(Command):
                 inv.add(item)
                 return str(item)
         return "There nothing to see here"
+
+class Open(Command):
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
+
+    def __call__(self, args):
+        if args and hasstatus(self.local, STATUS_INVENTORY):
+            inv = getstatus(self.local, STATUS_INVENTORY)
+            itemname = " ".join(args)
+            if itemname in inv:
+                for elem in inv:
+                    if hasstatus(elem,STATUS_INSIDE):
+                        containername = getstatus(elem,STATUS_INSIDE)
+                        if itemname == containername:
+                            setstatus(elem,STATUS_VISIBLE,True)
+        return "You have to give the name of the item you want to open"

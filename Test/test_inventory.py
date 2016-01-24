@@ -79,7 +79,7 @@ class TestInventory(TestCase):
     with self.assertRaises(ItemNotFoundException):
       inventory.remove(item2)
 
-  def test_print(self):
+  def test_str(self):
     inventory = Inventory()
     inventory.add(Item('Test1','Test'))
     inventory.add(Item('Test2','Test'))
@@ -87,3 +87,13 @@ class TestInventory(TestCase):
     inventory.add(Item('Test2','Test'))
     resp = str(inventory)
     self.assertEqual(resp,'Test1, Test2 x 3')
+
+  def test_inter_(self):
+    inventory = Inventory()
+    inventory.add(Item('Test1','Test'))
+    inventory.add(Item('Test2','Test'))
+    inventory.add(Item('Test3','Test'))
+    resp = list()
+    for i in inventory:
+      resp.append(i.name)
+    self.assertEqual(" ".join(resp),"Test1 Test2 Test3")

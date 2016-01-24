@@ -58,9 +58,10 @@ def hasstatus(cls, idstatus):
 #todo falta o removestatus
 
 
-def addinventory(cls, inventoryname, item):
+def addinventory(cls, inventoryname, item=None):
     inv = getstatus(cls, inventoryname) if hasstatus(cls, inventoryname) else Inventory()
-    inv.add(item)
+    if item:
+        inv.add(item)
     addstatus(cls, inventoryname, inv)
 
 

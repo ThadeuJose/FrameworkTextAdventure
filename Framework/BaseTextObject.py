@@ -5,7 +5,7 @@ from Framework.Exceptions import EmptyStringException
 __author__ = 'Thadeu Jose'
 
 
-class TextObject:
+class TextObject(object):
     """Basic object of the framework
     Name and Description cant be empty string
     """
@@ -31,7 +31,7 @@ class TextObject:
     @name.setter
     def name(self, value):
         if value:
-            return value
+            self._name = value
         else:
             raise EmptyStringException('name')
 
@@ -45,7 +45,7 @@ class TextObject:
     @description.setter
     def description(self, value):
         if value:
-            return value
+            self._description = value
         else:
             raise EmptyStringException('description')
 

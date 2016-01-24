@@ -32,6 +32,7 @@ class Inventory:
     """Manage the inventory"""
     def __init__(self):
         self.listItem = list()
+        self.index = 0
 
     def add(self, item):
         """Add a item if a item already exist you add one in the quantity"""
@@ -50,15 +51,6 @@ class Inventory:
             for elem in self.listItem:
                 if elem.item == item:  # If you find the item
                     elem.quant += 1  # You put plus one in your quantity
-
-    def __contains__(self, item):
-        for elem in self.listItem:
-            if elem == item:
-                return True
-        return False
-
-    def __str__(self):
-        return ", ".join(map(str, self.listItem))
 
     def take(self, item, quant=1):
         """Return the item and decrement one in the quantity
@@ -84,3 +76,23 @@ class Inventory:
             for elem in self.listItem:
                 if elem == item:
                     self.listItem.remove(elem)
+
+    def __contains__(self, item):
+        for elem in self.listItem:
+            if elem == item:
+                return True
+        return False
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        try:
+            result = self.listItem[self.index]
+        except IndexError:
+            raise StopIteration
+        self.index += 1
+        return result
+
+    def __str__(self):
+        return ", ".join(map(str, self.listItem))

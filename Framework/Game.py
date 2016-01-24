@@ -46,7 +46,6 @@ class Game:
             print(self.controller.currentlocal)
             while exe:
                 if self.controller.isendinglocal(self.controller.currentlocal):
-                    print(self.controller.currentlocal)
                     break
                 inp = input(">>")
                 #TODO Command END

@@ -60,6 +60,9 @@ COMMAND_STATUS = "status"
 STATUS_INVENTORY = 'inventory'
 STATUS_NOT_COLLECTABLE = 'notcollectable'
 STATUS_QUANT = 'quant'
+STATUS_CONTAINER = 'container'
+STATUS_INSIDE = 'inside'
+STATUS_VISIBLE = "status"
 
 #Local Messages ----------------------------------------------
 COMMAND_NOT_EXECUTABLE = "This command is not executable in this room"

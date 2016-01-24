@@ -83,12 +83,12 @@ class BadInput(Exception):
 
 class BadTitle(Exception):
     def __str__(self):
-        return repr('The title is not occupying the first position of the file')
+        return repr('Title not found. Title have to occupy the first position of the file')
 
 
 class BadDescription(Exception):
     def __str__(self):
-        return repr('The description is not occupying the second position of the file')
+        return repr('Description not found. Description have to occupy the second position of the file')
 
 
 class EmptyTitle(Exception):
@@ -114,5 +114,14 @@ class NotStartPlace(Exception):
 class DuplicateTitleError(Exception):
     def __init__(self, value):
         self.name = value
+
     def __str__(self):
-        return repr('Already exist a scene with the title '+self.name)
+        return repr('Already exist a scene with the title ' + self.name)
+
+
+class ContainerNotFoundError(Exception):
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr('Dont exist a container name ' + self.value)
