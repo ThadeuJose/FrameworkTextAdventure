@@ -43,7 +43,7 @@ class ConditionalGo(Go):
                                       'To open the gate, you must push the button.\n '
                                       'To press the button and open the gate, simply type \'push button\'.\n'
                                       'Go ahead and try it now.')
-        if self.local.name == 'Study':
+        if self.local.name == 'Study' and not getstatus(self.local,"portal_closed"):
             self.local.description = ('You are in the Study.\n'
                                       'You see a portal to the west and a Wizard here.\n'
                                       'The Vault is to the north.')
@@ -57,6 +57,30 @@ class Push(Command):
     def __call__(self, args):
         if args[0].lower() == "button":
             setstatus(self.local, "gate_closed", False)
+
+
+class Ask(Command):
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
+
+    def __call__(self, args):
+        if args.lower().strip() == "wizard about the portal":
+            return ('So you want to go through my portal? Well then, we may have a problem.\n'
+                    'See, I forgot how to open it. If only I could remember...\n'
+                    "Say, I've heard you may have something in your inventory that could help me.\n"
+                    "Check your inventory by  typing 'inventory' or 'i' and then show me something you think\n"
+                    "would help by typing 'show (object) to wizard'.\n")
+
+
+class Show(Command):
+    def __init__(self, local, controller):
+        Command.__init__(self, local, controller)
+
+    def __call__(self, args):
+        if args.lower() != "potion book":
+            return 'No, no, no. That is just a rock. What else do you have?'
+        setstatus(self.local, "portal_closed", False)
+        return 'Just what I was looking for! Ok, now the portal to the west is open. Go through it to end your game.'
 
 game = MyGame("Tutorial.yaml")
 game.run()
