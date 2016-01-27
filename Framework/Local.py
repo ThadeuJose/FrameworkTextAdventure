@@ -29,7 +29,6 @@ class Local(TextObject):
         return self.title != other.title
 
     def addLocal(self, direction, local):
-        #print(DIRECTIONS)
         if direction.lower() not in DIRECTIONS:
             raise DirectionNotFoundException()
         if direction.lower() in self._locals:

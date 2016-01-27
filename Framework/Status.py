@@ -20,6 +20,11 @@ def addstatus(cls, idstatus, status):
 def getstatus(cls, idstatus):
     try:
         status = cls.status[idstatus]
+        if isinstance(status,str):
+            if status.lower() == 'false':
+                return False
+            if status.lower() == 'true':
+                return True
     except AttributeError:
         raise DontHaveStatusException(cls.name, idstatus)
     except KeyError:

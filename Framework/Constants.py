@@ -32,9 +32,6 @@ class CommandIndex(IntEnum):
     Name = 1
     Description = 2
 
-#COMMAND_INDEX = 0
-#COMMAND_NAME_INDEX = 1
-#COMMAND_DESCRIPTION_INDEX = 2
 #Constants of Commands already implements ------------------------
 COMMAND_GO = "go"
 #GO.
@@ -56,13 +53,16 @@ COMMAND_END = "end"
 
 COMMAND_STATUS = "status"
 
+COMMAND_OPEN = "open"
+
 #Constants of Status already implements ------------------------
 STATUS_INVENTORY = 'inventory'
-STATUS_NOT_COLLECTABLE = 'notcollectable'
+STATUS_COLLECTABLE = 'collectable'
 STATUS_QUANT = 'quant'
 STATUS_CONTAINER = 'container'
 STATUS_INSIDE = 'inside'
-STATUS_VISIBLE = "status"
+STATUS_VISIBLE = "visible"
+
 
 #Local Messages ----------------------------------------------
 COMMAND_NOT_EXECUTABLE = "This command is not executable in this room"

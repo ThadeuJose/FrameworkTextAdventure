@@ -1,0 +1,19 @@
+go north
+go south
+go north
+go east
+get sign
+see sign
+go up
+get small rock
+get key
+open box
+get key
+get potion book
+go east
+push button
+go north
+show small rock
+show key
+show potion book
+go portal

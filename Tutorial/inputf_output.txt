@@ -1,0 +1,69 @@
+Tutorial
+A adventure to teach how to use the engine
+Entrance
+You are in the Entrance.
+The Cave is to the north.
+>> go north
+Cave
+Good job! Interactive fiction generally involves moving room to room solving puzzles on the way.
+ You can move any compass direction the writer has programmed in the same way.
+ The next room is to the east. Do you know what to do?
+>> go south
+Entrance
+You are in the Entrance.
+The Cave is to the north.
+>> go north
+Cave
+Good job! Interactive fiction generally involves moving room to room solving puzzles on the way.
+ You can move any compass direction the writer has programmed in the same way.
+ The next room is to the east. Do you know what to do?
+>> go east
+Corridor
+You now know how to move room to room in a text-based adventure.
+ In this room there is a sign. Type 'examine sign' to examine the sign.
+>> get sign
+You cant get the item
+>> see sign
+Sign
+You are reading the sign! The next room is above you. Type 'up' or 'u' to go up.
+>> go up
+Hallway
+Excellent! Your next step is learning about objects, doors, and opening/unlocking them.Here there is a door and a box.
+ The door is locked. To unlock the door, you will first need a key. I wonder if there is one in that box?
+ Type 'open box' to see what's inside.
+>> get small rock
+You sucessful get Small rock
+>> get key
+You cant get the item
+>> open box
+You open Box
+>> get key
+You sucessful get Key
+>> get potion book
+You sucessful get Potion book
+>> go east
+Vault
+Very nice. You are almost at the end of our tutorial.
+ Next, let's learn about devices. Devices are objects that can be switched on or off to affect the environment.
+ Here is a button and a gate that leads to the south. To open the gate, you must push the button.
+ To press the button and open the gate, simply type 'push button'. Go ahead and try it now
+
+>> push button
+You sucessful press the button
+>> go north
+Study
+You see a portal to the west and a Wizard here.
+ This Wizard has the power to open the portal for you.
+ Try asking him about the portal by typing 'ask wizard about portal' or 'tell wizard about portal'.
+>> show small rock
+No, no, no. What else do you have?
+>> show key
+No, no, no. What else do you have?
+>> show potion book
+Just what I was looking for! Ok, now the portal to the west is open. Go through it to end your game.
+>> go portal
+Ectasy
+You've solved every riddle, you've passed every obstacle, and you've gone through every room.
+ You have completed the tutorial and are now ready to play some interactive fiction!
+ This tutorial will have not taught you everything, but it has given you a good basis on what to
+ do in all your future adventures. Have fun in the land of Interactive Fiction!

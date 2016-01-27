@@ -1,8 +1,8 @@
 """Create and implements the commands"""
 from Framework.Constants import CommandIndex, COMMAND_END, COMMAND_START, COMMAND_GET, STATUS_QUANT, \
     COMMAND_ITEM, COMMAND_GO, DIRECTION_INDEX, COMMAND_NPC, \
-    LOCAL_INDEX, STATUS_INVENTORY, STATUS_NOT_COLLECTABLE, COMMAND_STATUS, COMMAND_SEE,STATUS_CONTAINER,STATUS_INSIDE,\
-    STATUS_VISIBLE
+    LOCAL_INDEX, STATUS_INVENTORY, STATUS_COLLECTABLE, COMMAND_STATUS, COMMAND_SEE,STATUS_CONTAINER,STATUS_INSIDE,\
+    STATUS_VISIBLE,COMMAND_OPEN
 from Framework.Item import Item
 from Framework.Status import addstatus, hasstatus, getstatus,setstatus, addinventory, getinventory
 from Framework.Exceptions import CommandNotFoundException,ContainerNotFoundError
@@ -59,14 +59,16 @@ class CommandFactory:
         self.controller.addcommand(local.title, COMMAND_SEE, See)
         if len(self.command) > 3:
             self.createstatus(newitem, self.command[3:])
+            if hasstatus(newitem,STATUS_CONTAINER):
+                self.controller.addcommand(local.title, COMMAND_OPEN, Open)
             if hasstatus(newitem, STATUS_QUANT):
-                for i in range(int(getstatus(newitem, STATUS_QUANT))):
+                for i in range(int(getstatus(newitem, STATUS_QUANT-1))):
                     addinventory(local, STATUS_INVENTORY, newitem)
             if hasstatus(newitem, STATUS_INSIDE):
-                containername = getstatus(newitem,STATUS_INSIDE)
-                inv = getinventory(local,STATUS_INVENTORY)
+                containername = getstatus(newitem, STATUS_INSIDE)
+                inv = getinventory(local, STATUS_INVENTORY)
                 if containername in inv:
-                    addstatus(newitem,STATUS_VISIBLE,False)
+                    addstatus(newitem, STATUS_VISIBLE, False)
                 else:
                     raise ContainerNotFoundError(containername)
 
@@ -107,20 +109,21 @@ class Get(Command):
     def __call__(self, args):
         inventory = getinventory(self.local, self.local.DEFAULT_INVENTORY)
         itemname = " ".join(args)
-        item = inventory.take(itemname)
         if not inventory:
             return "There is nothing to get here"
         if itemname not in inventory:
             return "There is no item call " + itemname.capitalize()
-        cancollect = self._collectable(item,STATUS_NOT_COLLECTABLE) or self._collectable(item,STATUS_VISIBLE)
+        item = inventory.take(itemname)
+        cancollect = self._collectable(item, STATUS_COLLECTABLE) and self._collectable(item, STATUS_VISIBLE)
         if cancollect:
             inventory.add(item)
             self.controller.setitem(item)
             return "You sucessful get " + itemname.capitalize()
+        inventory.add(item)
         return "You cant get the item"
 
-    def _collectable(self,item,idstatus):
-        return hasstatus(item, idstatus) and getstatus(item, idstatus)
+    def _collectable(self, item, idstatus):
+        return getstatus(item, idstatus) if hasstatus(item, idstatus) else True
 
 
 
@@ -166,18 +169,22 @@ class See(Command):
                 return str(item)
         return "There nothing to see here"
 
+
 class Open(Command):
     def __init__(self, local, controller):
         Command.__init__(self, local, controller)
 
     def __call__(self, args):
-        if args and hasstatus(self.local, STATUS_INVENTORY):
-            inv = getstatus(self.local, STATUS_INVENTORY)
-            itemname = " ".join(args)
-            if itemname in inv:
-                for elem in inv:
-                    if hasstatus(elem,STATUS_INSIDE):
-                        containername = getstatus(elem,STATUS_INSIDE)
-                        if itemname == containername:
-                            setstatus(elem,STATUS_VISIBLE,True)
-        return "You have to give the name of the item you want to open"
+        if not args and not hasstatus(self.local, STATUS_INVENTORY):
+            return "You have to give the name of the item you want to open"
+        inv = getstatus(self.local, STATUS_INVENTORY)
+        itemname = " ".join(args)
+        if itemname not in inv:
+            return "There is no item call " + itemname.capitalize()
+        for elem in inv:
+            item = elem.item
+            if hasstatus(item, STATUS_INSIDE):
+                containername = getstatus(item, STATUS_INSIDE)
+                if itemname.lower() == containername.lower():
+                    setstatus(item, STATUS_VISIBLE, True)
+        return "You open " + containername.capitalize()

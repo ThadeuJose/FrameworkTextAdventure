@@ -22,7 +22,7 @@
     - You now know how to move room to room in a text-based adventure.\n
       In this room there is a sign. Type 'examine sign' to examine the sign.
     - [Go,Up,Hallway]
-    - [Item,Sign,"You are reading the sign! The next room is above you. Type 'up' or 'u' to go up.",'notCollectable:true']
+    - [Item,Sign,"You are reading the sign! The next room is above you. Type 'up' or 'u' to go up.",'collectable:false']
 
 - Scene:
     - Hallway
