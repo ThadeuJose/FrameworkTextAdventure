@@ -1,4 +1,5 @@
-from enum import IntEnum
+from enum import IntEnum, Enum
+
 __author__ = 'Thadeu Jose'
 
 #Parser ------------------------------------------------
@@ -32,36 +33,35 @@ class CommandIndex(IntEnum):
     Name = 1
     Description = 2
 
+
 #Constants of Commands already implements ------------------------
-COMMAND_GO = "go"
+class CommandConst:
+    GO = "go"
+    SEE = "see"
+    GET = "get"
+    ITEM = "item"
+    START = "start"
+    NPC = "npc"
+    END = "end"
+    STATUS = "status"
+    OPEN = "open"
+
+
 #GO.
 DIRECTION_INDEX = 1
 LOCAL_INDEX = 2
 
-COMMAND_SEE = "see"
-
-COMMAND_GET = "get"
-
-COMMAND_ITEM = "item"
 ITEM_STATUS_INDEX = 3
 
-COMMAND_START = "start"
-
-COMMAND_NPC = "npc"
-
-COMMAND_END = "end"
-
-COMMAND_STATUS = "status"
-
-COMMAND_OPEN = "open"
 
 #Constants of Status already implements ------------------------
-STATUS_INVENTORY = 'inventory'
-STATUS_COLLECTABLE = 'collectable'
-STATUS_QUANT = 'quant'
-STATUS_CONTAINER = 'container'
-STATUS_INSIDE = 'inside'
-STATUS_VISIBLE = "visible"
+class StatusConst:
+    INVENTORY = 'inventory'
+    COLLECTABLE = 'collectable'
+    QUANT = 'quant'
+    CONTAINER = 'container'
+    INSIDE = 'inside'
+    VISIBLE = "visible"
 
 
 #Local Messages ----------------------------------------------

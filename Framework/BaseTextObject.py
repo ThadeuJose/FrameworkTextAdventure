@@ -1,5 +1,4 @@
 """Basic framework objects"""
-
 from Framework.Exceptions import EmptyStringException
 
 __author__ = 'Thadeu Jose'

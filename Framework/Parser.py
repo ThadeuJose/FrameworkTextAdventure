@@ -1,7 +1,7 @@
 import yaml
-from Framework.Local import *
-from Framework.Constants import *
-from Framework.Commands import CommandFactory
+from Framework.Local import Local
+from Framework.Exceptions import *
+from Framework.Factory import TextObjectFactory
 from Framework.Constants import *
 
 __author__ = 'Thadeu Jose'
@@ -14,7 +14,7 @@ class Parser:
         self.debugmode = debug
         self.myworld = world
         self.mycontroller = controller
-        self.commandfactory = CommandFactory(self.mycontroller)
+        self.textobjectfactory = TextObjectFactory(self.mycontroller)
 
     def openfile(self):
         if not self.filename:
@@ -85,7 +85,7 @@ class Parser:
                     raise DuplicateTitleError(title)
                 if self.debugmode:
                     print(description)
-                local = Local(title, description.replace("\\n", "\n"), self.mycontroller)
+                local = Local(title, description.replace("\\n", "\n"))
                 self.myworld.addLocal(local)
         if self.debugmode:
             print("Commands:")
@@ -97,7 +97,7 @@ class Parser:
                 for command in listScene[COMMANDS_INDEX:]:
                     if self.debugmode:
                         print(command)
-                    self.commandfactory.makecommand(local, command)
+                    self.textobjectfactory.maketextobject(local, command)
 
         if self.debugmode:
             print("-"*30)

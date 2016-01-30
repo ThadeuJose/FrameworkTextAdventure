@@ -1,18 +1,18 @@
-from Framework.Exceptions import *
 from Framework.Direction import DIRECTIONS, oppositedirection
 from Framework.BaseTextObject import TextObject
-from Framework.Constants import *
+from Framework.Constants import DIRECTION_NOT_VALID, DIRECTION_NOT_PERMITED
+from Framework.Exceptions import DirectionNotFoundException, LocalAlreadyImplementException
+from Framework.Manager import CommandManager
 
 __author__ = 'Thadeu Jose'
 
 
 class Local(TextObject):
 
-    def __init__(self, title, description, controller):
+    def __init__(self, title, description):
         TextObject.__init__(self, title, description)
         self._locals = dict()
-        self._commands = dict()#Dictionary contain all the command of the room index by the command name
-        self.DEFAULT_INVENTORY = STATUS_INVENTORY
+        self.commandmanager = CommandManager()
 
     @property
     def title(self):
@@ -32,7 +32,7 @@ class Local(TextObject):
         if direction.lower() not in DIRECTIONS:
             raise DirectionNotFoundException()
         if direction.lower() in self._locals:
-            raise LocalAlreadyImplementException
+            raise LocalAlreadyImplementException()
         self._locals[direction.lower()] = local
         if direction not in self._locals:
             local.addLocal(oppositedirection(direction), self)
@@ -45,14 +45,7 @@ class Local(TextObject):
         return self._locals[direction.lower()]
 
     def addcommand(self, idcommand, command):
-        #todo checar se e mesmo um command
-        self._commands[idcommand.lower()] = command
-    #todo falta o removecommand
+        self.commandmanager.addcommand(idcommand, command)
 
-    def execute(self, command, args):
-        if command not in self._commands:
-            return COMMAND_NOT_EXECUTABLE
-        return self._commands[command](args)
-
-
-
+    def execute(self, command, arg):
+        return self.commandmanager.execute(command, arg)

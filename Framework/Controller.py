@@ -1,8 +1,7 @@
 """Contain the classes who control all the game"""
-
+from Framework.Commands import Command
 from Framework.Local import Local
 from Framework.Exceptions import IncorrectTypeException
-from Framework.Direction import DIRECTIONS
 
 __author__ = 'Thadeu Jose'
 
@@ -10,8 +9,7 @@ __author__ = 'Thadeu Jose'
 class Controller:
     """Control the interation between the game and the rest of the framework"""
     def __init__(self, world, player):
-        #TODO
-        #Testar
+        #TODO Testar
         self.player = player
         self.world = world
         self._currentLocal = None
@@ -45,17 +43,19 @@ class Controller:
     def addcommand(self, local, idcommand, command):
         """Add a command in a local"""
         mylocal = self.world.getlocal(local) if isinstance(local, str) else local
-        mylocal.addcommand(idcommand, command(mylocal, self))
+        mycommand = command(mylocal, self)
+        if not isinstance(mycommand, Command):
+            raise IncorrectTypeException("Command")
+        mylocal.addcommand(idcommand,mycommand )
 
-    #todo make this method in player class
-    def player_has(self, item):
-        return item in self.player.inventory
+    def has(self, item):
+        return self.player.has(item)
 
-    def setitem(self, item):
-        self.player.inventory.add(item)
+    def additem(self, item):
+        self.player.additem(item)
 
     def removeitem(self, item):
-        self.player.inventory.remove(item)
+        self.player.removeitem(item)
 
     def execute(self, command, args):
         """Execute the command in the current local"""

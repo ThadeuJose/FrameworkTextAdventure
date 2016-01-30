@@ -1,4 +1,4 @@
-from Framework.Commands import Command, Go
+from Framework.Commands import Command,Go
 from Framework.Direction import adddirection
 from Framework.Game import Game
 from Framework.Status import setstatus, getstatus
@@ -20,6 +20,7 @@ class MyGame(Game):
         self.controller.addcommand("Study", "Go", ConditionalGo)
         self.controller.addcommand("Study","Show",Show)
 
+
 class ConditionalGo(Go):
     def __init__(self, local, controller):
         Go.__init__(self, local, controller)
@@ -35,7 +36,7 @@ class ConditionalGo(Go):
             self.local.description = ('You are in the Corridor.\n'
                                       'The Cave is to the east and the sign will tell '
                                       'you where the next room is.')
-        if self.local.name == 'Hallway' and self.controller.player_has("Key") and args[0].lower() == 'east':
+        if self.local.name == 'Hallway' and self.controller.has("Key") and args[0].lower() == 'east':
             self.local.description = ("You are in the Hallway.\n"
                                       "Below you is the Corridor and east of you is the door."
                                       "You can also see a box here.")
@@ -53,6 +54,7 @@ class ConditionalGo(Go):
             return Go.__call__(self, args)
         return Go.__call__(self,args)
 
+
 class Push(Command):
     def __init__(self, local, controller):
         Command.__init__(self, local, controller)
@@ -61,6 +63,7 @@ class Push(Command):
         if args[0].lower() == "button":
             setstatus(self.local, "gate_closed", False)
             return "You sucessful press the button"
+
 
 class Ask(Command):
     def __init__(self, local, controller):

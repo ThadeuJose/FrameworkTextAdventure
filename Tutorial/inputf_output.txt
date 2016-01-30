@@ -35,10 +35,10 @@ Excellent! Your next step is learning about objects, doors, and opening/unlockin
 You sucessful get Small rock
 >> get key
 You cant get the item
->> open box
-You open Box
+>> open
+You have to give the name of the item you want to open
 >> get key
-You sucessful get Key
+You cant get the item
 >> get potion book
 You sucessful get Potion book
 >> go east
@@ -47,7 +47,6 @@ Very nice. You are almost at the end of our tutorial.
  Next, let's learn about devices. Devices are objects that can be switched on or off to affect the environment.
  Here is a button and a gate that leads to the south. To open the gate, you must push the button.
  To press the button and open the gate, simply type 'push button'. Go ahead and try it now
-
 >> push button
 You sucessful press the button
 >> go north
