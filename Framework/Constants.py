@@ -16,16 +16,14 @@ DEBUG_TITLE_SUCESS = "Title successfully added"
 DEBUG_DESCRIPTION_SUCESS = "Description successfully added"
 
 
-def archivetype(arch):
-    return "Archive Type: "+str(type(arch))
+class Printm:
+    NOT_PRINT = 0
+    ON_SCREEN = 1
+    ON_FILE = 2
 
 
-def scenetype(elem):
-    return "Scene Type:"+str(type(elem))
 
 
-def scenename(elem):
-    return "Scene:"+str(elem)
 
 
 class CommandIndex(IntEnum):

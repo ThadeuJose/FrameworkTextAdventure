@@ -1,0 +1,68 @@
+Archive Type: <class 'list'>
+------------------------------
+Scene:
+Name:Entrance
+Type:<class 'list'>
+Description:Welcome to your first interactive fiction game! This is the opening text, it will explain what's going on.\n To start playing the game, click on the > and type in 'go north', 'north', or 'n' to head north into the next room.\n Once you've typed it, go ahead and hit the enter key.
+------------------------------
+Scene:
+Name:Cave
+Type:<class 'list'>
+Description:Good job! Interactive fiction generally involves moving room to room solving puzzles on the way.\n You can move any compass direction the writer has programmed in the same way.\n The next room is to the east. Do you know what to do?
+------------------------------
+Scene:
+Name:Corridor
+Type:<class 'list'>
+Description:You now know how to move room to room in a text-based adventure.\n In this room there is a sign. Type 'examine sign' to examine the sign.
+------------------------------
+Scene:
+Name:Hallway
+Type:<class 'list'>
+Description:Excellent! Your next step is learning about objects, doors, and opening/unlocking them.Here there is a door and a box.\n The door is locked. To unlock the door, you will first need a key. I wonder if there is one in that box?\n Type 'open box' to see what's inside.
+------------------------------
+Scene:
+Name:Vault
+Type:<class 'list'>
+Description:Very nice. You are almost at the end of our tutorial.\n Next, let's learn about devices. Devices are objects that can be switched on or off to affect the environment.\n Here is a button and a gate that leads to the south. To open the gate, you must push the button.\n To press the button and open the gate, simply type 'push button'. Go ahead and try it now
+------------------------------
+Scene:
+Name:Study
+Type:<class 'list'>
+Description:You see a portal to the west and a Wizard here.\n This Wizard has the power to open the portal for you.\n Try asking him about the portal by typing 'ask wizard about portal' or 'tell wizard about portal'.
+------------------------------
+Scene:
+Name:Ectasy
+Type:<class 'list'>
+Description:You've solved every riddle, you've passed every obstacle, and you've gone through every room.\n You have completed the tutorial and are now ready to play some interactive fiction!\n This tutorial will have not taught you everything, but it has given you a good basis on what to\n do in all your future adventures. Have fun in the land of Interactive Fiction!------------------------------
+------------------------------
+Cave
+['Go', 'East', 'Corridor']
+------------------------------
+Entrance
+['Start']
+['Go', 'North', 'Cave']
+------------------------------
+Study
+['NPC', 'Wizard', 'A wise looking old man in a flowing blue robe covered with shiny stars who has the power to open the portal.']
+['Go', 'Portal', 'Ectasy']
+['Status', 'portal_closed:true']
+------------------------------
+Ectasy
+['End']
+------------------------------
+Vault
+['Go', 'North', 'Study']
+['Item', 'Button', 'A big, red, round button that can be used to open the gate.']
+['Status', 'gate_closed:true']
+------------------------------
+Corridor
+['Go', 'Up', 'Hallway']
+['Item', 'Sign', "You are reading the sign! The next room is above you. Type 'up' or 'u' to go up.", 'collectable:false']
+------------------------------
+Hallway
+['Go', 'East', 'Vault']
+['Item', 'Box', 'A large, heavy box that can be opened, closed, and can be used to hold things.', 'container:true', 'open:false']
+['Item', 'Key', 'A small key that you can use to lock and unlock the wooden door.', 'inside:box']
+['Item', 'Potion book', 'Ooooooo, I think you should show this to someone.']
+['Item', 'Small rock', 'A small useless rock.']
+------------------------------

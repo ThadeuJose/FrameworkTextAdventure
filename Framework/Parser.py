@@ -1,4 +1,6 @@
 import yaml
+
+from Framework.Debug import Debug
 from Framework.Local import Local
 from Framework.Exceptions import *
 from Framework.Factory import TextObjectFactory
@@ -9,12 +11,11 @@ __author__ = 'Thadeu Jose'
 
 class Parser:
 
-    def __init__(self, filename, world, controller,  debug=False):
+    def __init__(self, filename, world, controller, printDebug):
         self.filename = filename
-        self.debugmode = debug
+        self.debugmode = Debug(printDebug)
         self.myworld = world
         self.mycontroller = controller
-        #TODO Tirar variavel global
         self.textobjectfactory = TextObjectFactory(self.mycontroller)
         self._textlist = self.openfile()
 
@@ -24,8 +25,7 @@ class Parser:
         with open(self.filename, "r") as stream:
             self.emptyfile(stream)
             textlist = yaml.load(stream)
-            if self.debugmode:
-                print(textlist)
+            #TODO if self.debugmode: print(textlist)
         return textlist
 
     def emptyfile(self, stream):
@@ -37,8 +37,7 @@ class Parser:
 
     def init(self):
         #todo criar class debugmode colocar opção para imprimir na tela e imprimir no arquivo
-        if self.debugmode:
-            print(archivetype(self._textlist))
+        self.debugmode.archivetype(self._textlist)
 
         if not isinstance(self._textlist, list):
             raise BadInput()
@@ -51,9 +50,9 @@ class Parser:
 
         #construct all scene
         for e in self._getscenes():
-            #TODO if self.debugmode:   print(scenetype(e[SCENE]))  print(scenename(e[SCENE]))
-
             scene = self._getscene(e)
+
+            self.debugmode.scene(scene)
 
             title = self._create_scene_element(scene,TITLE_INDEX, TITLE)
             description = self._create_scene_element(scene,DESCRIPTION_INDEX, DESCRIPTION)
@@ -64,20 +63,17 @@ class Parser:
             local = Local(title, description.replace("\\n", "\n"))
             self.myworld.addLocal(local)
 
-        #TODO if self.debugmode: print("Commands:")
-
         for e in self._getscenes():
             scene = self._getscene(e)
-            #TODO Add nome scene
             local = self.myworld.getlocal(self._get_scene_title(scene))
             for command in self._get_scene_commands(scene):
-                #TODO if self.debugmode: print(command)
+                self.debugmode.addcommand(self._get_scene_title(scene), command)
                 self.textobjectfactory.maketextobject(local, command)
-
-        #TODO if self.debugmode: print("-"*30)
 
         if not self.mycontroller.currentlocal:
             raise NotStartPlace()
+
+        self.debugmode.printf()
 
     def _get_scene_commands(self,scene):
         return scene[COMMANDS_INDEX:]
