@@ -35,10 +35,10 @@ Excellent! Your next step is learning about objects, doors, and opening/unlockin
 You sucessful get Small rock
 >> get key
 You cant get the item
->> open
-You have to give the name of the item you want to open
+>> open box
+You open Box
 >> get key
-You cant get the item
+You sucessful get Key
 >> get potion book
 You sucessful get Potion book
 >> go east

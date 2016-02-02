@@ -1,3 +1,5 @@
+from Framework.Constants import TITLE
+
 __author__ = 'Thadeu Jose'
 
 #Todo replace Exception with Error
@@ -81,29 +83,31 @@ class BadInput(Exception):
         return repr('The file is not following the specification')
 
 
-class BadTitle(Exception):
-    def __str__(self):
-        return repr('Title not found. Title have to occupy the first position of the file')
+class HistoryElementNotFoundError(Exception):
+    def __init__(self, value):
+        self.value = value
 
-
-class BadDescription(Exception):
     def __str__(self):
+        if self.value == TITLE:
+            return repr('Title not found. Title have to occupy the first position of the file')
         return repr('Description not found. Description have to occupy the second position of the file')
 
 
-class EmptyTitle(Exception):
+class EmptyElementSceneError(Exception):
+    def __init__(self, value):
+        self.value = value
+
     def __str__(self):
-        return repr('Not exist title in scene')
+        return repr('Not exist'+self.value+'in scene')
 
 
-class EmptyDescription(Exception):
+class EmptyScenes(Exception):
     def __str__(self):
-        return repr('Not exist description in scene')
-
+        return repr('The file not contain a scene')
 
 class EmptyScene(Exception):
     def __str__(self):
-        return repr('The file not contain a scene')
+        return repr('Scene not found')
 
 
 class NotStartPlace(Exception):

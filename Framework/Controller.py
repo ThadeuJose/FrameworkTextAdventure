@@ -48,8 +48,8 @@ class Controller:
             raise IncorrectTypeException("Command")
         mylocal.addcommand(idcommand,mycommand )
 
-    def has(self, item):
-        return self.player.has(item)
+    def hasitem(self, item):
+        return self.player.hasitem(item)
 
     def additem(self, item):
         self.player.additem(item)
@@ -59,5 +59,6 @@ class Controller:
 
     def execute(self, command, args):
         """Execute the command in the current local"""
-        return self.currentlocal.execute(command, args)
+        return self.player.execute(command, args) if self.player.hascommand(
+                command) else self.currentlocal.execute(command, args)
 

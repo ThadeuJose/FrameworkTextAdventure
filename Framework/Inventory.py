@@ -77,6 +77,9 @@ class Inventory:
                 if elem == item:
                     self.listItem.remove(elem)
 
+    def __len__(self):
+        return len(self.listItem)
+
     def __contains__(self, item):
         for elem in self.listItem:
             if elem == item:

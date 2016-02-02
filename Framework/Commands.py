@@ -70,6 +70,17 @@ class Get(Command):
                     return "You cant get the item"'''
 
 
+class Inv(Command):
+    def __init__(self, local, controller,player):
+        Command.__init__(self, local, controller)
+        self.player = player
+
+    def __call__(self, args):
+        if self.player.quantitem() == 0:
+            return "You have no item"
+        return "You have " + str(self.player.inventory())
+
+
 class See(Command):
     """Command you use to see in detail something"""
     def __init__(self, local, controller):
@@ -85,8 +96,6 @@ class See(Command):
                         result.append(elem)
                 result.append(elem)
             return "You see " + ", ".join(result)
-        if args[0] == 'inv':
-            return "You have " + str(self.controller.player.inventory)
         if args and hasstatus(self.local, StatusConst.INVENTORY):
             inv = getstatus(self.local, StatusConst.INVENTORY)
             itemname = " ".join(args)

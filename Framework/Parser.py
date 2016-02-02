@@ -14,7 +14,9 @@ class Parser:
         self.debugmode = debug
         self.myworld = world
         self.mycontroller = controller
+        #TODO Tirar variavel global
         self.textobjectfactory = TextObjectFactory(self.mycontroller)
+        self._textlist = self.openfile()
 
     def openfile(self):
         if not self.filename:
@@ -34,73 +36,84 @@ class Parser:
         stream.seek(0)
 
     def init(self):
-        #todo Refatorar e criar class debugmode
-        textlist = self.openfile()
+        #todo criar class debugmode colocar opção para imprimir na tela e imprimir no arquivo
         if self.debugmode:
-            print(archivetype(textlist))
-        if not isinstance(textlist, list):
+            print(archivetype(self._textlist))
+
+        if not isinstance(self._textlist, list):
             raise BadInput()
-        if TITLE in textlist[TITLE_INDEX]:
-            title = textlist[TITLE_INDEX][TITLE]
-            if not title:
-                raise EmptyStringException('Title')
-            else:
-                self.myworld.title = title
-            if self.debugmode:
-                print(DEBUG_TITLE_SUCESS)
-        else:
-            raise BadTitle()
 
-        if DESCRIPTION in textlist[DESCRIPTION_INDEX]:
-            description = textlist[DESCRIPTION_INDEX][DESCRIPTION]
-            if not description:
-                raise EmptyStringException('Description')
-            else:
-                self.myworld.description = description
-            if self.debugmode:
-                print(DEBUG_DESCRIPTION_SUCESS)
-        else:
-            raise BadDescription()
+        self._create_history_element(TITLE_INDEX, TITLE)
+        self._create_history_element(DESCRIPTION_INDEX, DESCRIPTION)
 
-        if not textlist[SCENE_INDEX:]:
+        if not self._getscenes():
             raise EmptyScene()
 
         #construct all scene
-        for e in textlist[SCENE_INDEX:]:
-            if SCENE in e:
-                if self.debugmode:
-                    print(scenetype(e[SCENE]))
-                    print(scenename(e[SCENE]))
-                listScene = e[SCENE]
-                try:
-                    title = listScene[TITLE_INDEX]
-                except IndexError:
-                    raise EmptyTitle()
-                try:
-                    description = listScene[DESCRIPTION_INDEX]
-                except IndexError:
-                    raise EmptyDescription()
+        for e in self._getscenes():
+            #TODO if self.debugmode:   print(scenetype(e[SCENE]))  print(scenename(e[SCENE]))
 
-                if self.myworld.haslocal(title):
-                    raise DuplicateTitleError(title)
-                if self.debugmode:
-                    print(description)
-                local = Local(title, description.replace("\\n", "\n"))
-                self.myworld.addLocal(local)
-        if self.debugmode:
-            print("Commands:")
+            scene = self._getscene(e)
 
-        for e in textlist[SCENE_INDEX:]:
-            if SCENE in e:
-                listScene = e[SCENE]
-                local = self.myworld.getlocal(listScene[TITLE_INDEX])
-                for command in listScene[COMMANDS_INDEX:]:
-                    if self.debugmode:
-                        print(command)
-                    self.textobjectfactory.maketextobject(local, command)
+            title = self._create_scene_element(scene,TITLE_INDEX, TITLE)
+            description = self._create_scene_element(scene,DESCRIPTION_INDEX, DESCRIPTION)
 
-        if self.debugmode:
-            print("-"*30)
+            if self.myworld.haslocal(title):
+                raise DuplicateTitleError(title)
+
+            local = Local(title, description.replace("\\n", "\n"))
+            self.myworld.addLocal(local)
+
+        #TODO if self.debugmode: print("Commands:")
+
+        for e in self._getscenes():
+            scene = self._getscene(e)
+            #TODO Add nome scene
+            local = self.myworld.getlocal(self._get_scene_title(scene))
+            for command in self._get_scene_commands(scene):
+                #TODO if self.debugmode: print(command)
+                self.textobjectfactory.maketextobject(local, command)
+
+        #TODO if self.debugmode: print("-"*30)
 
         if not self.mycontroller.currentlocal:
             raise NotStartPlace()
+
+    def _get_scene_commands(self,scene):
+        return scene[COMMANDS_INDEX:]
+
+    def _get_scene_title(self, scene):
+        return scene[TITLE_INDEX]
+
+    def _getscene(self, elem):
+        if SCENE not in elem:
+            raise EmptyScene()
+        return elem[SCENE]
+
+    def _getscenes(self):
+        return self._textlist[SCENE_INDEX:]
+
+    def _create_scene_element(self, scene, index, strtype):
+        try:
+            result = scene[index]
+        except IndexError:
+            raise EmptyElementSceneError(strtype)
+        return result
+
+    def _create_history_element(self, index, typeelem):
+        result = self._get_history_element(index, typeelem)
+        if not result:
+            raise EmptyStringException(typeelem)
+        self._set_history_element(typeelem, result)
+        #TODO self.debugmode.sucess(type) print debug sucess message
+
+    def _set_history_element(self, typeelem, elem):
+        if typeelem == DESCRIPTION:
+            self.myworld.description = elem
+        elif typeelem == TITLE:
+            self.myworld.title = elem
+
+    def _get_history_element(self, index, elem):
+        if elem not in self._textlist[index]:
+            raise HistoryElementNotFoundError(elem)
+        return self._textlist[index][elem]

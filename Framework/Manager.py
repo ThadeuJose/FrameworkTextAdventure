@@ -11,7 +11,11 @@ class CommandManager:
     def addcommand(self, idcommand, command):
         self._commands[idcommand.lower()] = command
 
+    def hascommand(self,idcommand):
+        return idcommand.lower() in self._commands
+
     def execute(self, command, args):
-        if command not in self._commands:
+        mycommand = command.lower()
+        if mycommand not in self._commands:
             return COMMAND_NOT_EXECUTABLE
-        return self._commands[command](args)
+        return self._commands[mycommand](args)

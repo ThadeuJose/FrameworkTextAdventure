@@ -36,7 +36,7 @@ class ConditionalGo(Go):
             self.local.description = ('You are in the Corridor.\n'
                                       'The Cave is to the east and the sign will tell '
                                       'you where the next room is.')
-        if self.local.name == 'Hallway' and self.controller.has("Key") and args[0].lower() == 'east':
+        if self.local.name == 'Hallway' and self.controller.hasitem("Key") and args[0].lower() == 'east':
             self.local.description = ("You are in the Hallway.\n"
                                       "Below you is the Corridor and east of you is the door."
                                       "You can also see a box here.")
@@ -90,4 +90,4 @@ class Show(Command):
         return 'Just what I was looking for! Ok, now the portal to the west is open. Go through it to end your game.'
 
 game = MyGame("Tutorial.yaml")
-game.run('inputf.txt')
+game.run()#'inputf.txt')

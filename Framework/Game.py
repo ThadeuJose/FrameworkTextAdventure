@@ -1,4 +1,5 @@
 from Framework.Actor import Player
+from Framework.Constants import CommandConst
 from Framework.Parser import Parser
 from Framework.World import World
 from Framework.Controller import Controller
@@ -46,7 +47,8 @@ class Game:
             if self.controller.isendinglocal(self.controller.currentlocal):
                 break
             inp = input(">>")
-            #TODO Command END
+            if inp.strip().lower() == CommandConst.END:
+                break
             print(self.interpreter(inp))
 
     def _run_inputfile(self, fileinput):

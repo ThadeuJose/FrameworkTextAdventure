@@ -45,7 +45,8 @@ class CommandConst:
     END = "end"
     STATUS = "status"
     OPEN = "open"
-
+    END = "end"
+    INV = "inv"
 
 #GO.
 DIRECTION_INDEX = 1
