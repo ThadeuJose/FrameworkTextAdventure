@@ -8,10 +8,11 @@ __author__ = 'Thadeu Jose'
 
 class Controller:
     """Control the interation between the game and the rest of the framework"""
-    def __init__(self, world, player):
+    def __init__(self, world, player, game):
         #TODO Testar
         self.player = player
         self.world = world
+        self._game = game
         self._currentLocal = None
         self._endingLocals = list()
 
@@ -56,6 +57,12 @@ class Controller:
 
     def removeitem(self, item):
         self.player.removeitem(item)
+
+    def takeitem(self,item):
+        return self.player.takeitem(item)
+
+    def endgame(self, message=None):
+        self._game.endgame(message)
 
     def execute(self, command, args):
         """Execute the command in the current local"""

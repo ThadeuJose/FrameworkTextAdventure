@@ -1,0 +1,22 @@
+- Title: Monster
+
+- Description: Voce perdeu sua memoria e tem que se aventurar para redecobri-la.
+
+- Scene:
+  - Cave
+  - You are in a cave. You feel yourself weird.In the floor,have some wood.You better make a weapon.
+  - [Start]
+  - [Item,Wood,a simple wood]
+  - [Craft]
+  - [Go,North,Hall]
+
+- Scene:
+  - Hall
+  - In the hall. You find a goblin. He tries to attack you
+  - [Monster,Goblin,A horrible goblin,2,1,0]#HP,Attack,Defense
+  - [Go,North,Exit]
+
+- Scene:
+  - Exit
+  - You get out of the cavern
+  - [End]

@@ -33,6 +33,9 @@ class Player(TextObject):
     def removeitem(self, item):
         self._inventory.remove(item)
 
+    def takeitem(self,item):
+        return self._inventory.take(item)
+
     def quantitem(self):
         return len(self._inventory)
 

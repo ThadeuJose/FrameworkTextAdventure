@@ -6,8 +6,8 @@
   - [Start]
   - [Go,East,Area 2]
   - [Item,'Wood','A piece of wood']
-  - [Item,'Fire pit','a hot fire pit','notCollectable:True']
-  - [Item,'Knife','A simple Knife','Damage:1','notCollectable:True']
+  - [Item,'Fire pit','a hot fire pit','collectable:false']
+  - [Item,'Knife','A simple Knife','Damage:1','collectable:false']
   - [Item,'Fruit','Delicious Fruits','Quant:3']
   - [Status,"pull_lever:False"]
 - Scene:
@@ -21,7 +21,6 @@
   - [Item,'Rope','1.2m of rope ']
   - [Status, "shot_stone:False","analise_ground:False"]
   - [Status, "analise_hole:False"]
-
 - Scene:
   - Area 3
   - 'Fim'

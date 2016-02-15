@@ -36,7 +36,6 @@ class Parser:
         stream.seek(0)
 
     def init(self):
-        #todo criar class debugmode colocar opção para imprimir na tela e imprimir no arquivo
         self.debugmode.archivetype(self._textlist)
 
         if not isinstance(self._textlist, list):

@@ -1,4 +1,4 @@
-from Framework.Commands import Command,Go
+from Framework.Commands import Command, Go
 from Framework.Direction import adddirection
 from Framework.Game import Game
 from Framework.Status import setstatus, getstatus
@@ -16,9 +16,9 @@ class MyGame(Game):
         self.controller.addcommand("Corridor", "Go", ConditionalGo)
         self.controller.addcommand("Hallway", "Go", ConditionalGo)
         self.controller.addcommand("Vault", "Go", ConditionalGo)
-        self.controller.addcommand("Vault","Push",Push)
+        self.controller.addcommand("Vault", "Push", Push)
         self.controller.addcommand("Study", "Go", ConditionalGo)
-        self.controller.addcommand("Study","Show",Show)
+        self.controller.addcommand("Study", "Show", Show)
 
 
 class ConditionalGo(Go):

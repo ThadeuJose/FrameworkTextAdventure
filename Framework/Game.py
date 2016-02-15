@@ -13,8 +13,11 @@ class Game:
         self.debugmode = debug
         self.filename = filename
         self.world = World()
-        self.controller = Controller(self.world, Player())
-        self.parser = Parser(self.filename, self.world, self.controller, self.debugmode)
+        self.controller = Controller(self.world, Player(),self)
+        self._parser = Parser(self.filename, self.world, self.controller, self.debugmode)
+        self.commandfactory = self._parser.textobjectfactory
+        self._endgame=False
+        self._endmessage = ''
 
     def preprocess(self):
         pass
@@ -22,7 +25,11 @@ class Game:
     def init(self):
         pass
 
-    def interpreter(self, inp):
+    def endgame(self, message='Thanks for playing this game'):
+        self._endgame = True
+        self._endmessage=message
+
+    def _interpreter(self, inp):
         """Interpret the given input"""
         inp = inp.strip()
         elem = inp.split(" ")
@@ -32,7 +39,7 @@ class Game:
         """Run the game interactive , if a fileinput is given,
         will run the game with the inputs in the file and exist"""
         self.preprocess()
-        self.parser.init()
+        self._parser.init()
         self.init()
         if fileinput:
             self._run_inputfile(fileinput)
@@ -44,12 +51,15 @@ class Game:
         print(self.world)
         print(self.controller.currentlocal)
         while exe:
+            if self._endgame:
+                print(self._endmessage)
+                break
             if self.controller.isendinglocal(self.controller.currentlocal):
                 break
             inp = input(">>")
             if inp.strip().lower() == CommandConst.END:
                 break
-            print(self.interpreter(inp))
+            print(self._interpreter(inp))
 
     def _run_inputfile(self, fileinput):
         out = list()
@@ -60,6 +70,6 @@ class Game:
         for c in commands:
             if not c[0] == '#':
                 out.append(">> " + c.rstrip('\n'))
-                out.append(self.interpreter(c))
+                out.append(self._interpreter(c))
         with open(fileinput[:-4] + '_output.txt', "w") as outputfile:
             outputfile.write("\n".join(map(str, out)))
