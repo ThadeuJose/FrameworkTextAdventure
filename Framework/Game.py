@@ -1,5 +1,5 @@
 from Framework.Actor import Player
-from Framework.Constants import CommandConst, Printm
+from Framework.Constants import CommandConst, PrintMode
 from Framework.Parser import Parser
 from Framework.World import World
 from Framework.Controller import Controller
@@ -9,7 +9,7 @@ __author__ = 'Thadeu Jose'
 
 class Game:
     """Main class of the framework and class who will be inherited"""
-    def __init__(self, filename, debug=Printm.NOT_PRINT):
+    def __init__(self, filename, debug=PrintMode.NOT_PRINT):
         self.debugmode = debug
         self.filename = filename
         self.world = World()

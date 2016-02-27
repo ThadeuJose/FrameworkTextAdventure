@@ -1,11 +1,11 @@
-from Framework.Constants import Printm, TITLE_INDEX, DESCRIPTION_INDEX
+from Framework.Constants import PrintMode, TITLE_INDEX, DESCRIPTION_INDEX
 
 __author__ = 'Thadeu Jose'
 
 
 class Debug:
 
-    def __init__(self, printm=Printm.NOT_PRINT):
+    def __init__(self, printm=PrintMode.NOT_PRINT):
         self.text = list()
         self.commands = dict()
         self.myprintm = printm
@@ -26,14 +26,14 @@ class Debug:
         self.commands[scenename].append(command)
 
     def printf(self):
-        if self.myprintm == Printm.ON_SCREEN:
+        if self.myprintm == PrintMode.ON_SCREEN:
             print("\n".join(self.text))
             for key, elem in self.commands.items():
                 print("-"*30)
                 print(key)
                 print(elem)
             print("-"*30)
-        if self.myprintm == Printm.ON_FILE:
+        if self.myprintm == PrintMode.ON_FILE:
             with open("debug.txt", "w") as outputfile:
                 outputfile.write("\n".join(self.text))
                 outputfile.write("-"*30+"\n")

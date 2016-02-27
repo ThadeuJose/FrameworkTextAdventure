@@ -12,14 +12,16 @@ class Command:
         self.local = local
         self.controller = controller
 
+    def __call__(self, args):
+        return self.function(args)
+
+    def function(self, args):
+        """Define what the command will do"""
+        pass
 
 class Go(Command):
     """Command you use to walk in the history"""
-
-    def __init__(self, local, controller):
-        Command.__init__(self, local, controller)
-
-    def __call__(self, args):
+    def function(self, args):
         local = self.local.getlocal(args[0])
         if isinstance(local, Local):
             self.controller.currentlocal = local
@@ -29,11 +31,7 @@ class Go(Command):
 
 class Get(Command):
     """Command you use to pick a item"""
-
-    def __init__(self, local, controller):
-        Command.__init__(self, local, controller)
-
-    def __call__(self, args):
+    def function(self, args):
         inventory = getinventory(self.local, StatusConst.INVENTORY)
         itemname = " ".join(args)
         if not inventory:
@@ -71,11 +69,11 @@ class Get(Command):
 
 
 class Inv(Command):
-    def __init__(self, local, controller,player):
+    def __init__(self, local, controller, player):
         Command.__init__(self, local, controller)
         self.player = player
 
-    def __call__(self, args):
+    def function(self, args):
         if self.player.quantitem() == 0:
             return "You have no item"
         return "You have " + str(self.player.inventory())
@@ -83,10 +81,7 @@ class Inv(Command):
 
 class See(Command):
     """Command you use to see in detail something"""
-    def __init__(self, local, controller):
-        Command.__init__(self, local, controller)
-
-    def __call__(self, args):
+    def function(self, args):
         if not args and hasstatus(self.local, StatusConst.INVENTORY):
             inv = getstatus(self.local, StatusConst.INVENTORY)
             result = list()
@@ -107,10 +102,8 @@ class See(Command):
 
 
 class Open(Command):
-    def __init__(self, local, controller):
-        Command.__init__(self, local, controller)
-
-    def __call__(self, args):
+    """Command you use to open a container"""
+    def function(self, args):
         if not args:
             return "You have to give the name of the item you want to open"
         inv = getstatus(self.local, StatusConst.INVENTORY)

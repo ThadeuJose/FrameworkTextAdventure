@@ -70,13 +70,14 @@ class DontHaveLocalID(Exception):
 
 
 class DontHaveStatusException(Exception):
-    def __init__(self, name, status):
+    def __init__(self, name, status=None):
         self.name = name
         self.status = status
 
     def __str__(self):
-        return repr('The object '+self.name+ ' dont have the status '+self.status)
-
+        if self.status:
+            return repr('The object '+self.name+ ' dont have the status '+self.status)
+        return  repr('The object '+self.name+ ' dont have status')
 
 class BadInput(Exception):
     def __str__(self):

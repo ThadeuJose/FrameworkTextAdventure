@@ -24,6 +24,17 @@ class TextObjectFactory:
             CommandConst.NPC: self._make_NPC,
         }
 
+    @property
+    def CommandArgs(self):
+        """The arguments of the command
+        The first index is the command without the tag
+        """
+        return self._command[1:]
+
+    @CommandArgs.setter
+    def CommandArgs(self, value):
+        pass
+
     def maketextobject(self, local, command):
         """Make a text object based in what is write in the YAML file"""
         self._command = command
@@ -33,8 +44,21 @@ class TextObjectFactory:
         else:
             raise CommandNotFoundException(commandindex)
 
-    def addmakefunction(self, id, functionmake):
-        self._dispatch[id.lower()] = functionmake
+    def addnewtag(self, id, function):
+        """Add a new tag. If the parser find this tag,he execute the function"""
+        self._dispatch[id.lower()] = function
+
+    def addnewclass(self, id, commandclass):
+        """Add a new tag.
+        Only use if:
+        tag in yaml and command who player will type is equal
+        is only need to add the command to class
+        """
+        controller = self._controller
+
+        def make(local):
+            controller.addcommand(local.title, id, commandclass)
+        self.addnewtag(id, make)
 
     def _createstatus(self, cls, lis):
         """Add a list of status in a class"""

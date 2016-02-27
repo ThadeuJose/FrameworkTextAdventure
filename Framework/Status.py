@@ -32,14 +32,12 @@ def getstatus(cls, idstatus):
 
 
 def getallstatus(cls):
-    resp = list()
-    for idstatus in cls.status:
-        try:
-            resp.extend([idstatus, cls.status[idstatus]])
-        except AttributeError:
-            raise DontHaveStatusException(cls.name, idstatus)
-        except KeyError:
-            raise DontHaveStatusException(cls.name, idstatus)
+    try:
+        resp = ["%s:%s" % (k, v) for k, v in cls.status.items()]
+    except AttributeError:
+        raise DontHaveStatusException(cls.name)
+    except KeyError:
+        raise DontHaveStatusException(cls.name)
     return ", ".join(resp)
 
 

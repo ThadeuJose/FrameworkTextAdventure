@@ -16,7 +16,7 @@ DEBUG_TITLE_SUCESS = "Title successfully added"
 DEBUG_DESCRIPTION_SUCESS = "Description successfully added"
 
 
-class Printm:
+class PrintMode:
     NOT_PRINT = 0
     ON_SCREEN = 1
     ON_FILE = 2
