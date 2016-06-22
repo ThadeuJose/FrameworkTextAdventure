@@ -1,17 +1,24 @@
 """Contain the classes who control all the game"""
-from Framework.Commands import Command
+from Framework.Commands import Command, Inv
+from Framework.Constants import CommandConst
+from Framework.Inventory import Inventory
 from Framework.Local import Local
 from Framework.Exceptions import IncorrectTypeException
+from Framework.Manager import CommandManager
 
 __author__ = 'Thadeu Jose'
 
 
 class Controller:
     """Control the interation between the game and the rest of the framework"""
-    def __init__(self, world, player, game):
-        #TODO Testar
+    def __init__(self, game, world, player, factory):
         self.player = player
+        self.playerinventory = Inventory()
+        self.playercommandmanager = CommandManager()
         self.world = world
+        self.factory = factory
+        self.framework = None
+        self.playercommandmanager.addcommand(CommandConst.INV, Inv(None, self, self.framework))
         self._game = game
         self._currentLocal = None
         self._endingLocals = list()
@@ -41,31 +48,35 @@ class Controller:
         """Return the local based in the title"""
         return self.world.getlocal(title)
 
-    def addcommand(self, local, idcommand, command):
-        """Add a command in a local"""
-        mylocal = self.world.getlocal(local) if isinstance(local, str) else local
-        mycommand = command(mylocal, self)
-        if not isinstance(mycommand, Command):
-            raise IncorrectTypeException("Command")
-        mylocal.addcommand(idcommand,mycommand )
+    def additem(self, item):
+        self.playerinventory.add(item)
 
     def hasitem(self, item):
-        return self.player.hasitem(item)
-
-    def additem(self, item):
-        self.player.additem(item)
+        return item in self.playerinventory
 
     def removeitem(self, item):
-        self.player.removeitem(item)
+        self.playerinventory.remove(item)
 
     def takeitem(self,item):
         return self.player.takeitem(item)
 
+    def quantitem(self):
+        return len(self.playerinventory)
+
+    def inventory(self):
+        return str(self.playerinventory)
+
     def endgame(self, message=None):
         self._game.endgame(message)
 
+    def addcommand(self, local, idcommand, command):
+        """Add a command in a local"""
+        mylocal = self.world.getlocal(local) if isinstance(local, str) else local
+        mycommand = command(mylocal, self,self.framework)
+        mylocal.addcommand(idcommand, mycommand)
+
     def execute(self, command, args):
-        """Execute the command in the current local"""
-        return self.player.execute(command, args) if self.player.hascommand(
+        """Execute the command"""
+        return self.playercommandmanager.execute(command, args) if self.playercommandmanager.hascommand(
                 command) else self.currentlocal.execute(command, args)
 

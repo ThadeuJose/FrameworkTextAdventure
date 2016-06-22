@@ -8,9 +8,10 @@ __author__ = 'Thadeu Jose'
 
 class Command:
     """Base class of all commands"""
-    def __init__(self, local, controller):
+    def __init__(self, local, controller, framework):
         self.local = local
-        self.controller = controller
+        self._controller = controller
+        self.framework = framework
 
     def __call__(self, args):
         return self.function(args)
@@ -19,12 +20,13 @@ class Command:
         """Define what the command will do"""
         pass
 
+
 class Go(Command):
     """Command you use to walk in the history"""
     def function(self, args):
         local = self.local.getlocal(args[0])
         if isinstance(local, Local):
-            self.controller.currentlocal = local
+            self._controller.currentlocal = local
             return local.__str__()
         return "You cant go in this direction"
 
@@ -42,7 +44,7 @@ class Get(Command):
         cancollect = self._collectable(item, StatusConst.COLLECTABLE) and self._collectable(item, StatusConst.VISIBLE)
         if cancollect:
             inventory.add(item)
-            self.controller.additem(item)
+            self._controller.additem(item)
             return "You sucessful get " + itemname.capitalize()
         inventory.add(item)
         return "You cant get the item"
@@ -68,15 +70,14 @@ class Get(Command):
                     return "You cant get the item"'''
 
 
-class Inv(Command):
-    def __init__(self, local, controller, player):
-        Command.__init__(self, local, controller)
-        self.player = player
+#Revisar
+#-----------------------------------------------------------------------------------------------------------------------
 
+class Inv(Command):
     def function(self, args):
-        if self.player.quantitem() == 0:
+        if self._controller.quantitem() == 0:
             return "You have no item"
-        return "You have " + str(self.player.inventory())
+        return "You have " + str(self._controller.inventory())
 
 
 class See(Command):

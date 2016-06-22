@@ -36,7 +36,7 @@ class ConditionalGo(Go):
             self.local.description = ('You are in the Corridor.\n'
                                       'The Cave is to the east and the sign will tell '
                                       'you where the next room is.')
-        if self.local.name == 'Hallway' and self.controller.hasitem("Key") and args[0].lower() == 'east':
+        if self.local.name == 'Hallway' and self._controller.hasitem("Key") and args[0].lower() == 'east':
             self.local.description = ("You are in the Hallway.\n"
                                       "Below you is the Corridor and east of you is the door."
                                       "You can also see a box here.")

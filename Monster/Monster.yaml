@@ -7,13 +7,16 @@
   - You are in a cave. You feel yourself weird.In the floor,have some wood.You better make a weapon.
   - [Start]
   - [Item,Wood,a simple wood]
+  - [Monster,Mi,A horrible goblin,2,1,0]#HP,Attack,Defense
+  - [Monster,Ki,A horrible goblin,2,1,0]#HP,Attack,Defense
+  - [Talk]
   - [Craft]
   - [Go,North,Hall]
 
 - Scene:
   - Hall
-  - In the hall. You find a goblin. He tries to attack you
-  - [Monster,Goblin,A horrible goblin,2,1,0]#HP,Attack,Defense
+  - In the hall. You find a rabbit. He tries to attack you
+  - [Monster,Rabbit,A fast Rabbit,2,1,0]#HP,Attack,Defense
   - [Go,North,Exit]
 
 - Scene:

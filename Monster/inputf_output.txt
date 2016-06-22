@@ -1,0 +1,22 @@
+Monster
+Voce perdeu sua memoria e tem que se aventurar para redecobri-la.
+Cave
+You are in a cave. You feel yourself weird.In the floor,have some wood.You better make a weapon.
+>> talk mi
+Mi - Hi
+>> talk ki
+Mi - Hello
+>> get wood
+You sucessful get Wood
+>> craft sword
+You make a sword
+>> go north
+Hall
+In the hall. You find a rabbit. He tries to attack you
+>> analyze
+Rabbit A:1, D:0, HP:2
+>> attack
+You attack
+ HP Player 19 HP Monster 0
+>> attack
+There is not to attack here

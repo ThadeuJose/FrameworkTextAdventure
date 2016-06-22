@@ -11,12 +11,12 @@ __author__ = 'Thadeu Jose'
 
 class Parser:
 
-    def __init__(self, filename, world, controller, printDebug):
+    def __init__(self, filename, world, controller,factory, printDebug):
         self.filename = filename
         self.debugmode = Debug(printDebug)
         self.myworld = world
         self.mycontroller = controller
-        self.textobjectfactory = TextObjectFactory(self.mycontroller)
+        self.textobjectfactory = factory
         self._textlist = self.openfile()
 
     def openfile(self):

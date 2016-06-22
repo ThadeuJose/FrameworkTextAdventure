@@ -1,5 +1,7 @@
 from Framework.Actor import Player
 from Framework.Constants import CommandConst, PrintMode
+from Framework.Factory import TextObjectFactory
+from Framework.Framework import Framework
 from Framework.Parser import Parser
 from Framework.World import World
 from Framework.Controller import Controller
@@ -10,12 +12,14 @@ __author__ = 'Thadeu Jose'
 class Game:
     """Main class of the framework and class who will be inherited"""
     def __init__(self, filename, debug=PrintMode.NOT_PRINT):
-        self.debugmode = debug
-        self.filename = filename
         self.world = World()
-        self.controller = Controller(self.world, Player(),self)
-        self._parser = Parser(self.filename, self.world, self.controller, self.debugmode)
-        self.commandfactory = self._parser.textobjectfactory
+        self.factory = TextObjectFactory()
+        self.player = Player()
+        self.controller = Controller(self, self.world, self.player, self.factory)
+        self.factory._controller = self.controller
+        self._parser = Parser(filename, self.world, self.controller,self.factory, debug)
+        self.framework = Framework(self.controller)
+        self.controller.framework = self.framework
         self._endgame=False
         self._endmessage = ''
 

@@ -1,0 +1,8 @@
+talk mi
+talk ki
+get wood
+craft sword
+go north
+analyze
+attack
+attack

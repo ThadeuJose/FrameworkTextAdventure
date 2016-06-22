@@ -26,9 +26,9 @@ class Light(Command):
         Command.__init__(self, local, controller)
 
     def __call__(self, args):
-        if self.controller.hasitem(Item('Wood', "A piece of wood")):
-            self.controller.additem(Item('Torch', "A simple torch"))
-            self.controller.removeitem(Item("Wood", "A piece of wood"))
+        if self._controller.hasitem(Item('Wood', "A piece of wood")):
+            self._controller.additem(Item('Torch', "A simple torch"))
+            self._controller.removeitem(Item("Wood", "A piece of wood"))
             return "You light a torch"
         return "You cant do this command"
 
@@ -38,7 +38,7 @@ class Pull(Command):
         Command.__init__(self, local, controller)
 
     def __call__(self,args):
-        if self.controller.hasitem(Item('Torch', "A simple torch")) and args[0].lower() == 'lever':
+        if self._controller.hasitem(Item('Torch', "A simple torch")) and args[0].lower() == 'lever':
             setstatus(self.local, "pull_lever", True)
             return "You pull the lever"
         return "You cant do this command"
@@ -50,8 +50,8 @@ class Go1(Command):
 
     def __call__(self,args):
         if getstatus(self.local, "pull_lever") and args[0].lower() == 'east':
-            self.controller.currentlocal = self.local.getlocal(args[0])
-            return self.controller.currentlocal.__str__()
+            self._controller.currentlocal = self.local.getlocal(args[0])
+            return self._controller.currentlocal.__str__()
         return "You cant go in this direction"
 
 
@@ -69,7 +69,7 @@ class Get(Command):
             if resp in inventory and getstatus(self.local, "analise_hole"):
                 collectable.extend(['rope', 'flask'])
             if resp.lower() in collectable:
-                self.controller.additem(inventory.take(resp))
+                self._controller.additem(inventory.take(resp))
                 return "You sucessful get "+resp.capitalize()
             return "You cant get the item"
         return "There is nothing to get here"
@@ -95,7 +95,7 @@ class Shot(Command):
         Command.__init__(self,local,controller)
 
     def __call__(self,args):
-        if self.controller.hasitem(Item('Stones', "A simple stone")):
+        if self._controller.hasitem(Item('Stones', "A simple stone")):
             setstatus(self.local,"shot_stone", True)
             return "As pedras soltaram as estalactites que cairam nos morcegos. Os morcegos se afastaram" \
                     " da passagem. É possível ver uma luz que aponta para um desfiladeiro"
@@ -107,7 +107,7 @@ class Tie(Command):
         Command.__init__(self,local,controller)
 
     def __call__(self,args):
-        if self.controller.hasitem(Item('Rope', '1.2m of rope ')) and getstatus(self.local, "shot_stone"):
+        if self._controller.hasitem(Item('Rope', '1.2m of rope ')) and getstatus(self.local, "shot_stone"):
             return "amarrou a corda e pode descer o desfiladeiro"
         return "You cant do this command"
 
@@ -118,8 +118,8 @@ class Go2(Command):
 
     def __call__(self,args):
         if getstatus(self.local, "shot_stone") and args[0].lower() == 'north':
-            self.controller.currentlocal = self.local.getlocal(args[0])
-            return "Voce desceu o desfiladeiro e pode avancar\n" +self.controller.currentlocal.__str__()
+            self._controller.currentlocal = self.local.getlocal(args[0])
+            return "Voce desceu o desfiladeiro e pode avancar\n" +self._controller.currentlocal.__str__()
         return "You cant go in this direction"
 
 

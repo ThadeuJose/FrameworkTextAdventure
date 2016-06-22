@@ -130,3 +130,7 @@ class ContainerNotFoundError(Exception):
 
     def __str__(self):
         return repr('Dont exist a container name ' + self.value)
+
+class ClassInvalid(Exception):
+    def __str__(self):
+        return repr('Class is not inhereted from Command or Tag')
