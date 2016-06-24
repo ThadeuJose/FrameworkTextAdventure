@@ -1,5 +1,5 @@
 from Framework.Game import Game
-from Framework.Commands import Command, See
+from Framework.Commands import Command, See, Go
 from Framework.Item import Item
 from Framework.Status import addstatus, getstatus, setstatus, getinventory
 
@@ -8,118 +8,79 @@ __author__ = 'Thadeu Jose'
 
 class MyGame(Game):
 
+    def preprocess(self):
+        f = self.framework
+        f.addcls("Light",Light)
+        f.addcls("Pull", Pull)
+        f.addcls("Shot", Shot)
+        f.addcls("Observer", Observer)
+        f.addcls("Tie", Tie)
+
     def init(self):
-        self.controller.addcommand("Area 1", "Light", Light)
-        self.controller.addcommand("Area 1", "Pull", Pull)
-        self.controller.addcommand("Area 1", "Go", Go1)
-        self.controller.addcommand("Area 1", "See", See)
-
-        self.controller.addcommand("Area 2", "Go", Go2)
-        self.controller.addcommand("Area 2", "Shot", Shot)
-        self.controller.addcommand("Area 2", "Observer", Observer)
-        self.controller.addcommand("Area 2", "Get", Get)
-        self.controller.addcommand("Area 2", "Tie", Tie)
-
+        f = self.framework
+        f.addlocal(f.getlocal("Area 1"), "Go", Go1)
+        f.addlocal(f.getlocal("Area 2"), "Go", Go2)
 
 class Light(Command):
-    def __init__(self, local, controller):
-        Command.__init__(self, local, controller)
-
-    def __call__(self, args):
-        if self._controller.hasitem(Item('Wood', "A piece of wood")):
-            self._controller.additem(Item('Torch', "A simple torch"))
-            self._controller.removeitem(Item("Wood", "A piece of wood"))
+    def function(self, args):
+        if self.framework.playerhas("wood"):
+            self.framework.additemplayer('Torch', "A simple torch")
+            self.framework.removeitem("wood")
             return "You light a torch"
         return "You cant do this command"
 
 
 class Pull(Command):
-    def __init__(self, local, controller):
-        Command.__init__(self, local, controller)
-
-    def __call__(self,args):
-        if self._controller.hasitem(Item('Torch', "A simple torch")) and args[0].lower() == 'lever':
-            setstatus(self.local, "pull_lever", True)
-            return "You pull the lever"
+    def function(self, args):
+        if args:
+            if self.framework.playerhas('Torch') and args[0].lower() == 'lever':
+                self.framework.setstatus(self.local, "pull_lever", True)
+                return "You pull the lever"
         return "You cant do this command"
 
 
-class Go1(Command):
-    def __init__(self, local, controller):
-        Command.__init__(self, local, controller)
-
-    def __call__(self,args):
-        if getstatus(self.local, "pull_lever") and args[0].lower() == 'east':
-            self._controller.currentlocal = self.local.getlocal(args[0])
-            return self._controller.currentlocal.__str__()
+class Go1(Go):
+    def function(self, args):
+        if args:
+            if self.framework.getstatus(self.local, "pull_lever") and args[0].lower() == 'east':
+                return Go.function(self,args)
         return "You cant go in this direction"
 
 
-class Get(Command):
-    def __init__(self, local, controller):
-        Command.__init__(self, local, controller)
-
-    def __call__(self, args):
-        inventory = getinventory(self.local, self.local.DEFAULT_INVENTORY)
-        if inventory:
-            collectable = list()
-            resp = " ".join(args)
-            if resp in inventory and getstatus(self.local, "analise_ground"):
-                collectable.extend(['herb', 'stones'])
-            if resp in inventory and getstatus(self.local, "analise_hole"):
-                collectable.extend(['rope', 'flask'])
-            if resp.lower() in collectable:
-                self._controller.additem(inventory.take(resp))
-                return "You sucessful get "+resp.capitalize()
-            return "You cant get the item"
-        return "There is nothing to get here"
-
-
 class Observer(Command):
-    def __init__(self,local,controller):
-        Command.__init__(self,local,controller)
-
-    def __call__(self,args):
-        if args[0].lower() == 'ground':
-            setstatus(self.local,"analise_ground", True)
-            return "percebeu um buraco consideravelmente grande. Nele tem algumas pedras pontiagudas no chao " \
-                   "alem de algumas ervas que podem ser uteis"
-        if args[0].lower() == 'hole' and getstatus(self.local,"analise_ground"):
-            setstatus(self.local, "analise_hole", True)
-            return "existe um cantil e uma corda no interior do buraco"
+    def function(self, args):
+        if args:
+            if args[0].lower() == 'ground':
+                self.framework.setstatus(self.local,"analise_ground", True)
+                return "percebeu um buraco consideravelmente grande. Nele tem algumas pedras pontiagudas no chao " \
+                       "alem de algumas ervas que podem ser uteis"
+            if args[0].lower() == 'hole' and self.framework.getstatus(self.local,"analise_ground"):
+                self.framework.setstatus(self.local, "analise_hole", True)
+                return "existe um cantil e uma corda no interior do buraco"
         return "You cant do this command"
 
 
 class Shot(Command):
-    def __init__(self,local,controller):
-        Command.__init__(self,local,controller)
-
-    def __call__(self,args):
-        if self._controller.hasitem(Item('Stones', "A simple stone")):
-            setstatus(self.local,"shot_stone", True)
+    def function(self, args):
+        if self.framework.playerhas('Stones'):
+            self.framework.setstatus(self.local,"shot_stone", True)
             return "As pedras soltaram as estalactites que cairam nos morcegos. Os morcegos se afastaram" \
                     " da passagem. É possível ver uma luz que aponta para um desfiladeiro"
         return "You cant do this command"
 
 
 class Tie(Command):
-    def __init__(self,local,controller):
-        Command.__init__(self,local,controller)
-
-    def __call__(self,args):
-        if self._controller.hasitem(Item('Rope', '1.2m of rope ')) and getstatus(self.local, "shot_stone"):
+    def function(self, args):
+        if self.framework.playerhas('Rope') and self.framework.getstatus(self.local, "shot_stone"):
             return "amarrou a corda e pode descer o desfiladeiro"
         return "You cant do this command"
 
 
-class Go2(Command):
-    def __init__(self, local, controller):
-        Command.__init__(self, local, controller)
-
+class Go2(Go):
     def __call__(self,args):
-        if getstatus(self.local, "shot_stone") and args[0].lower() == 'north':
-            self._controller.currentlocal = self.local.getlocal(args[0])
-            return "Voce desceu o desfiladeiro e pode avancar\n" +self._controller.currentlocal.__str__()
+        if args:
+            if self.framework.getstatus(self.local, "shot_stone") and args[0].lower() == 'north':
+                return "Voce desceu o desfiladeiro e pode avancar\n" +  Go.function(self,args)
         return "You cant go in this direction"
 
 

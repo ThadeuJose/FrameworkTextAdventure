@@ -61,7 +61,6 @@ class Parser:
 
             local = Local(title, description.replace("\\n", "\n"))
             self.myworld.addLocal(local)
-
         for e in self._getscenes():
             scene = self._getscene(e)
             local = self.myworld.getlocal(self._get_scene_title(scene))

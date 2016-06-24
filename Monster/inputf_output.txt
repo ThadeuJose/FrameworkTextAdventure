@@ -5,7 +5,7 @@ You are in a cave. You feel yourself weird.In the floor,have some wood.You bette
 >> talk mi
 Mi - Hi
 >> talk ki
-Mi - Hello
+Ki - Hello
 >> get wood
 You sucessful get Wood
 >> craft sword
@@ -14,7 +14,7 @@ You make a sword
 Hall
 In the hall. You find a rabbit. He tries to attack you
 >> analyze
-Rabbit A:1, D:0, HP:2
+Rabbit HP:2, D:0, A:1
 >> attack
 You attack
  HP Player 19 HP Monster 0

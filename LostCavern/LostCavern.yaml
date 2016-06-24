@@ -9,6 +9,8 @@
   - [Item,'Fire pit','a hot fire pit','collectable:false']
   - [Item,'Knife','A simple Knife','Damage:1','collectable:false']
   - [Item,'Fruit','Delicious Fruits','Quant:3']
+  - [Light]
+  - [Pull]
   - [Status,"pull_lever:False"]
 - Scene:
   - Area 2
@@ -19,8 +21,10 @@
   - [Item,'Herb','A curative herb']
   - [Item,'Flask','Bottle to drink water']
   - [Item,'Rope','1.2m of rope ']
-  - [Status, "shot_stone:False","analise_ground:False"]
-  - [Status, "analise_hole:False"]
+  - [Status, "shot_stone:False","analise_ground:False","analise_hole:False"]
+  - [Tie]
+  - [Shot]
+  - [Observer]
 - Scene:
   - Area 3
   - 'Fim'

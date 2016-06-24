@@ -82,7 +82,7 @@ class TextObjectFactory:
             if hasstatus(newitem, StatusConst.CONTAINER):
                 self._controller.addcommand(self._local.title, CommandConst.OPEN, Open)
             if hasstatus(newitem, StatusConst.QUANT):
-                for i in range(int(getstatus(newitem, StatusConst.QUANT-1))):
+                for i in range(int(getstatus(newitem, StatusConst.QUANT))-1):
                     addinventory(self._local, StatusConst.INVENTORY, newitem)
             if hasstatus(newitem, StatusConst.INSIDE):
                 containername = getstatus(newitem, StatusConst.INSIDE)

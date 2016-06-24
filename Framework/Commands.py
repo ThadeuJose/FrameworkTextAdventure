@@ -1,6 +1,6 @@
 """Create and implements the commands"""
 from Framework.Constants import StatusConst
-from Framework.Status import hasstatus, getstatus, setstatus,  getinventory
+from Framework.Status import hasstatus, getstatus, setstatus,  getinventory, getallstatus
 from Framework.Local import Local
 
 __author__ = 'Thadeu Jose'
@@ -43,7 +43,6 @@ class Get(Command):
         item = inventory.take(itemname)
         cancollect = self._collectable(item, StatusConst.COLLECTABLE) and self._collectable(item, StatusConst.VISIBLE)
         if cancollect:
-            inventory.add(item)
             self._controller.additem(item)
             return "You sucessful get " + itemname.capitalize()
         inventory.add(item)
@@ -83,17 +82,15 @@ class Inv(Command):
 class See(Command):
     """Command you use to see in detail something"""
     def function(self, args):
-        if not args and hasstatus(self.local, StatusConst.INVENTORY):
-            inv = getstatus(self.local, StatusConst.INVENTORY)
+        inv = getstatus(self.local, StatusConst.INVENTORY)
+        if not args:
             result = list()
             for elem in inv:
-                if hasstatus(elem, StatusConst.VISIBLE):
-                    if getstatus(elem, StatusConst.VISIBLE):
-                        result.append(elem)
-                result.append(elem)
-            return "You see " + ", ".join(result)
-        if args and hasstatus(self.local, StatusConst.INVENTORY):
-            inv = getstatus(self.local, StatusConst.INVENTORY)
+                result.append(str(elem))
+            if not result:
+                return "You see nothing"
+            return "You see "+",".join(result)
+        if args:
             itemname = " ".join(args)
             if itemname in inv:
                 item = inv.take(itemname)
@@ -101,6 +98,8 @@ class See(Command):
                 return str(item)
         return "There nothing to see here"
 
+    def _visible(self, item, idstatus):
+        return getstatus(item, idstatus) if hasstatus(item, idstatus) else True
 
 class Open(Command):
     """Command you use to open a container"""

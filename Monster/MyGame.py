@@ -14,9 +14,9 @@ class MyGame(Game):
         self.framework.addcls("talk",Talk)
 
     def init(self):
-        self.framework.addstatus("Player", "HP", 20)
-        self.framework.addstatus("Player", "A", 2)
-        self.framework.addstatus("Player", "D", 0)
+        self.framework.addplayerstatus("Player", "HP", 20)
+        self.framework.addplayerstatus("Player", "A", 2)
+        self.framework.addplayerstatus("Player", "D", 0)
 
 
 class Monster(Tag):
@@ -48,7 +48,7 @@ class Attack(Command):
             f.setstatus(monster,"HP",hpmonster)
             return "You attack\n HP Player "+ str(hpplayer) +" HP Monster "+str(hpmonster)
         else:
-            return "There is not to attack here"
+            return "There is nothing to attack here"
 
 
 class Talk(Command):

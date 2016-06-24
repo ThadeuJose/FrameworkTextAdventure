@@ -20,4 +20,5 @@ get flask
 get rope
 shot stones
 tie rope
+see
 go north

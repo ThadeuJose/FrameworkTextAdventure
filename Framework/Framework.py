@@ -23,11 +23,12 @@ class Framework:
         else:
             ClassInvalid()
 
-    def addstatus(self, idx, idstatus, valuestatus):
+    def addplayerstatus(self, idx, idstatus, valuestatus):
         if idx.lower() == self._idplayer:
             addstatus(self._controller.player,idstatus,valuestatus)
 
-    def setstatus(self,textobject,idx,valuestatus):
+
+    def setstatus(self, textobject, idx, valuestatus):
         setstatus(textobject,idx,valuestatus)
 
     def getstatus(self,idx,idstatus):
@@ -36,14 +37,18 @@ class Framework:
     def getallstatus(self,idx):
         return getallstatus(idx)
 
+    def getlocal(self,name):
+        return self._controller.getlocal(name)
+
 #Itens manipulations  ------------------------------------------------------------------
     def playerhas(self, idx):
         return self._controller.hasitem(idx)
 
     def createitem(self,name,description, statusdic=None):
         item = Item(name,description)
-        for k, v in statusdic.items():
-            addstatus(item, k, v)
+        if statusdic:
+            for k, v in statusdic.items():
+                addstatus(item, k, v)
         return item
 
     def additemplayer(self,name,description,statusdic=None):
@@ -59,11 +64,11 @@ class Framework:
             addstatus(obj, k, v)
         return obj
 
-    def addlocal(self,local,idx, textobject):
-        if isinstance(textobject, TextObject):
-            addstatus(local,idx,textobject)
+    def addlocal(self, local, idx, object):
+        if isinstance(object, TextObject):
+            addstatus(local, idx, object)
         else:
-            self._controller.addcommand(local, idx, textobject)
+            self._controller.addcommand(local, idx, object)
 
-    def gettextobject(self,local,idx):
+    def gettextobject(self, local, idx):
         return getstatus(local, idx)

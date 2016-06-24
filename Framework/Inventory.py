@@ -25,7 +25,7 @@ class MyTuple:
 
 
     def __str__(self):
-        return self.name if self.quant > 1 else self.name + " x " + str(self.quant)
+        return self.name if self.quant <= 1 else self.name + " x " + str(self.quant)
 
 
 class Inventory:
@@ -56,11 +56,11 @@ class Inventory:
         """Return the item and decrement one in the quantity
         If quantity equal 0 the item is remove
         """
-        if item in self:
+        if item in self.listItem:
             for elem in self.listItem:
                 if elem == item:
                     if elem.quant - quant <= 0:
-                        self.remove(elem.item)
+                        self.listItem.remove(elem.item)
                     else:
                         elem.quant -= quant
                     return elem.item
@@ -87,7 +87,7 @@ class Inventory:
         return False
 
     def __iter__(self):
-        return self
+        return self.listItem.__iter__()
 
     def __next__(self):
         try:

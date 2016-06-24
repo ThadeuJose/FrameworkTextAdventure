@@ -66,6 +66,9 @@ class Controller:
     def inventory(self):
         return str(self.playerinventory)
 
+    def getlocal(self,name):
+        return self.world.getlocal(name)
+
     def endgame(self, message=None):
         self._game.endgame(message)
 

@@ -6,7 +6,7 @@ Existe um buraco no teto por onde e possivel ver luz.
 Talvez voce tenha caido deste buraco...
 
 >> see
-You see Wood x 1, Fire pit x 1, Knife x 1, Fruit
+You see Wood x 1,Fire pit x 1,Knife x 1,Fruit
 >> get wood
 You sucessful get Wood
 >> get knife
@@ -14,11 +14,11 @@ You cant get the item
 >> get fruit
 You sucessful get Fruit
 >> see
-You see Fire pit x 1, Fruit, Knife x 1
+You see nothing
 >> get fire pit
 You cant get the item
 >> see inv
-You have Wood x 1, Fruit x 1
+There nothing to see here
 >> light
 You light a torch
 >> pull lever
@@ -27,8 +27,8 @@ You pull the lever
 You cant go in this direction
 >> go east
 Area 2
-Voce estÃ¡ a uma area ampla, plena de estalactites no teto.
- Um bando de morcegos voam sem parar bloqueando sua visÃ£o.
+Voce esta a uma area ampla, plena de estalactites no teto.
+ Um bando de morcegos voam sem parar bloqueando sua visao.
 >> observer ground
 percebeu um buraco consideravelmente grande. Nele tem algumas pedras pontiagudas no chao alem de algumas ervas que podem ser uteis
 >> get stones
@@ -45,6 +45,8 @@ You sucessful get Rope
 As pedras soltaram as estalactites que cairam nos morcegos. Os morcegos se afastaram da passagem. É possível ver uma luz que aponta para um desfiladeiro
 >> tie rope
 amarrou a corda e pode descer o desfiladeiro
+>> see
+You see Stones x 1,Herb x 1,Flask x 1,Rope x 1
 >> go north
 Voce desceu o desfiladeiro e pode avancar
 Area 3
