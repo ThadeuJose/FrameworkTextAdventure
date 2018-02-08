@@ -6,7 +6,7 @@ Existe um buraco no teto por onde e possivel ver luz.
 Talvez voce tenha caido deste buraco...
 
 >> see
-You see Wood x 1,Fire pit x 1,Knife x 1,Fruit
+You see Wood,Fire pit,Knife,Fruit x 3
 >> get wood
 You sucessful get Wood
 >> get knife
@@ -14,7 +14,7 @@ You cant get the item
 >> get fruit
 You sucessful get Fruit
 >> see
-You see nothing
+You see Fire pit,Fruit x 2,Knife
 >> get fire pit
 You cant get the item
 >> see inv
@@ -46,7 +46,7 @@ As pedras soltaram as estalactites que cairam nos morcegos. Os morcegos se afast
 >> tie rope
 amarrou a corda e pode descer o desfiladeiro
 >> see
-You see Stones x 1,Herb x 1,Flask x 1,Rope x 1
+You see nothing
 >> go north
 Voce desceu o desfiladeiro e pode avancar
 Area 3

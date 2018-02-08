@@ -27,6 +27,7 @@ class Monster(Tag):
         self.framework.addlocal(self.local, "Analyze", Analyze)
         self.framework.addlocal(self.local, "Attack", Attack)
 
+
 class Attack(Command):
     def function(self, args):
         f = self.framework
@@ -66,7 +67,7 @@ class Craft(Command):
         if args:
             if args[0].lower() == "sword":
                 if self.framework.playerhas("wood"):
-                    self.framework.removeitem("wood")
+                    self.framework.removeitemplayer("wood")
                     self.framework.additemplayer("Sword", "A wood sword", {"Damage": 1})
                     return "You make a sword"
                 return "You don't have the material"

@@ -19,4 +19,7 @@ Rabbit HP:2, D:0, A:1
 You attack
  HP Player 19 HP Monster 0
 >> attack
-There is not to attack here
+There is nothing to attack here
+>> go north
+Exit
+You get out of the cavern

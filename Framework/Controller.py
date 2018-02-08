@@ -1,10 +1,8 @@
 """Contain the classes who control all the game"""
-from Framework.Commands import Command, Inv
+from Framework.Commands import Inv
 from Framework.Constants import CommandConst
-from Framework.Inventory import Inventory
 from Framework.Local import Local
 from Framework.Exceptions import IncorrectTypeException
-from Framework.Manager import CommandManager
 
 __author__ = 'Thadeu Jose'
 
@@ -13,12 +11,10 @@ class Controller:
     """Control the interation between the game and the rest of the framework"""
     def __init__(self, game, world, player, factory):
         self.player = player
-        self.playerinventory = Inventory()
-        self.playercommandmanager = CommandManager()
         self.world = world
         self.factory = factory
         self.framework = None
-        self.playercommandmanager.addcommand(CommandConst.INV, Inv(None, self, self.framework))
+        self.player.addcommand(CommandConst.INV, Inv(None, self, self.framework))
         self._game = game
         self._currentLocal = None
         self._endingLocals = list()
@@ -49,22 +45,22 @@ class Controller:
         return self.world.getlocal(title)
 
     def additem(self, item):
-        self.playerinventory.add(item)
+        self.player.add(item)
 
     def hasitem(self, item):
-        return item in self.playerinventory
+        return self.player.hasitem(item)
 
     def removeitem(self, item):
-        self.playerinventory.remove(item)
+        self.player.remove(item)
 
     def takeitem(self,item):
         return self.player.takeitem(item)
 
     def quantitem(self):
-        return len(self.playerinventory)
+        return self.player.quantitem()
 
     def inventory(self):
-        return str(self.playerinventory)
+        return self.player.printInventory()
 
     def getlocal(self,name):
         return self.world.getlocal(name)
@@ -80,6 +76,6 @@ class Controller:
 
     def execute(self, command, args):
         """Execute the command"""
-        return self.playercommandmanager.execute(command, args) if self.playercommandmanager.hascommand(
+        return self.player.execute(command, args) if self.player.hascommand(
                 command) else self.currentlocal.execute(command, args)
 

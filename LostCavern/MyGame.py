@@ -25,7 +25,7 @@ class Light(Command):
     def function(self, args):
         if self.framework.playerhas("wood"):
             self.framework.additemplayer('Torch', "A simple torch")
-            self.framework.removeitem("wood")
+            self.framework.removeitemplayer("wood")
             return "You light a torch"
         return "You cant do this command"
 
@@ -85,4 +85,4 @@ class Go2(Go):
 
 
 myGame = MyGame("LostCavern.yaml")
-myGame.run()#("inputf.txt")
+myGame.run()#"inputf.txt")

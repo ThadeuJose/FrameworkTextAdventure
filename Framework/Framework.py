@@ -27,7 +27,6 @@ class Framework:
         if idx.lower() == self._idplayer:
             addstatus(self._controller.player,idstatus,valuestatus)
 
-
     def setstatus(self, textobject, idx, valuestatus):
         setstatus(textobject,idx,valuestatus)
 
@@ -37,8 +36,8 @@ class Framework:
     def getallstatus(self,idx):
         return getallstatus(idx)
 
-    def getlocal(self,name):
-        return self._controller.getlocal(name)
+    def getlocal(self, title):
+        return self._controller.getlocal(title)
 
 #Itens manipulations  ------------------------------------------------------------------
     def playerhas(self, idx):
@@ -54,7 +53,7 @@ class Framework:
     def additemplayer(self,name,description,statusdic=None):
         self._controller.additem(self.createitem(name,description,statusdic))
 
-    def removeitem(self, idx):
+    def removeitemplayer(self, idx):
         self._controller.removeitem(idx)
 #Itens manipulations  ------------------------------------------------------------------
 

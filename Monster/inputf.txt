@@ -6,3 +6,4 @@ go north
 analyze
 attack
 attack
+go north
